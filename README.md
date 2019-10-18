@@ -1,7 +1,7 @@
-# e2guardian
-An e2guardian container with SSL MITM enabled by default -- a secondary proxy is not required.
+# E2Guardian
+An [e2guardian](https://github.com/e2guardian/e2guardian) Docker container with SSL MITM enabled by default -- a secondary proxy is not required.
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkyMzM4NzA1Nl19
+eyJoaXN0b3J5IjpbNzAzMTgzODEwXX0=
 -->
