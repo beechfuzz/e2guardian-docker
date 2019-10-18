@@ -121,13 +121,16 @@ Path | Description |
 /app/config/e2guardian.conf| This is your main E2Guardian configuration file
 /app/config/examplef1.story| Storyboard file for the default filtergroup
 /app/config/e2guardianf1.confg|Config file for the default filtergroup
-/app/config/lists/|Contans al
+/app/config/lists/|Contains all of the E2Guardian lists
+/app/config/ssl/| Contains all of the SSL certs and keys for SSL MITM
+/app/config/ssl/generatedcerts|
+/app/config/ssl/servercerts|
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NzY5MzY2NiwtNTY4NjgwMzA4LDcyND
+eyJoaXN0b3J5IjpbLTI2NzM5NDIxMywtNTY4NjgwMzA4LDcyND
 U1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
