@@ -55,9 +55,12 @@ Basically, if the UID/GID of the account that runs the E2Guardian daemon inside 
 
 To find yours, run the  `id <user>`  command in your host.  Example:
 
+    $ ls -al /opt/docker/volumes/
+    
+    
     $ id dockeruser
      uid=1011(dockeruser) gid=1011(dockeruser) groups=1011(dockeruser)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkwNTQ3ODg0MSw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbMTk3NTYxODg3NCw3MTgwNTc4NjBdfQ==
 -->
