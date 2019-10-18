@@ -42,7 +42,8 @@ You can add the following arguments to the `docker run` command for better contr
 |-e PGID=####| Specify GID to use inside the container.  More info below.|
 
 ### UID/GID
-Sometimes 
+From 
+When using volumes (`-v` flags) permissions issues can arise between the host OS and the container.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNTA0MTA0MzgsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbMTA4NTM4NDQ1Miw3MTgwNTc4NjBdfQ==
 -->
