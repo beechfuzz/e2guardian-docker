@@ -26,7 +26,7 @@ Installing and running is quite simple.  Assuming you already have [Docker insta
         --restart=unless-stopped \
         beechfuzz/e2guardian
 
-That alone is sufficient to get it up and running immediately *without any persistence*.
+That alone is sufficient to get it up and running immediately *without any persistence*.  For persistent data, 
 
 ## Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
@@ -74,5 +74,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjY4MTE2ODM5LDcxODA1Nzg2MF19
+eyJoaXN0b3J5IjpbLTk3Njc2NDA5LDcxODA1Nzg2MF19
 -->
