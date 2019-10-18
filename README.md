@@ -41,7 +41,7 @@ You can add the following arguments to the `docker run` command for better contr
 |-e PUID=####| Specify UID to use inside the container.  More info below.|
 |-e PGID=####| Specify GID to use inside the container.  More info below.|
 
-
+**strong text**
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMjAxNzYwNzYsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbLTE3MjY5NjM4OTQsNzE4MDU3ODYwXX0=
 -->
