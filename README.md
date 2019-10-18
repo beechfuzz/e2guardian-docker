@@ -29,6 +29,7 @@ Installing and running is quite simple.  Assuming you already have [Docker insta
         --env PGID=1011 \
         beechfuzz/e2guardian
 
+That alone is sufficient to get it up and running.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzODM2MzYyMTddfQ==
+eyJoaXN0b3J5IjpbLTE5NTUyNTU2MF19
 -->
