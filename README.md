@@ -63,7 +63,7 @@ To find yours, run the  `id <user>`  command in your host.  Example:
     $ id dockeruser
      uid=1011(dockeruser) gid=1011(dockeruser) groups=1011(dockeruser)
 
-In the output of the first command, you can see the 'dockeruser' account owns the 'e2g' volume.  
+In the output of the first command, you can see that the `dockeruser` account owns the `e2g` folder (which will be used for the volume) on the host.    Running `id 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA4Mzk1MjE3OSw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbMTE3MTAwODY3Niw3MTgwNTc4NjBdfQ==
 -->
