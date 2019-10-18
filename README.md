@@ -1,6 +1,6 @@
 # Quick Info
 ## What Is This?
-An [E2Guardian](https://github.com/e2guardian/e2guardian) Docker container (based on Alpine v3.8) with SSL MITM enabled by default; a secondary proxy is not required.
+An [E2Guardian](https://github.com/e2guardian/e2guardian) Docker container with SSL MITM enabled by default; a secondary proxy is not required.  This container is based on Alpine v3.8, which is how I keep the image so small.
 
 **CURRENT VERSION:  v5.3.3**
 
@@ -31,5 +31,5 @@ Installing and running is quite simple.  Assuming you already have [Docker insta
 
 That alone is sufficient to get it up and running immediately.  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY5OTQ5Njg4OV19
+eyJoaXN0b3J5IjpbLTQ0NTY2MDY3MV19
 -->
