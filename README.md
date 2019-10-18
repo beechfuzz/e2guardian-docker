@@ -51,8 +51,8 @@ You can add the following arguments to the `docker run` command for better contr
 |-|-|
 |`-v /path/to/config:/app/config`|Make config files and lists persistent|
 |`-v /path/to/log:/app/log`| Make logs persistent|
-|`-e PUID=####`| Specify UID to use inside the container.  More info below.|
-|`-e PGID=####`| Specify GID to use inside the container.  More info below.|
+|`-e PUID=####`| Specify UID to use inside the container.  [More info](#puidpgid) below.|
+|`-e PGID=####`| Specify GID to use inside the container.  [More info](#puidpgid) below.|
 
 #### Persistence and Volumes
 The data on a container does not persist when that container no longer exists.   Therefore, we use volumes to enable persistent data within our containers.  You add a volume to a container via the `-v` parameter.  The syntax for the parameter is:
@@ -104,6 +104,6 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMDgxMzAzODQsNzI0NTU2ODEzLDcxOD
-A1Nzg2MF19
+eyJoaXN0b3J5IjpbLTU2ODY4MDMwOCw3MjQ1NTY4MTMsNzE4MD
+U3ODYwXX0=
 -->
