@@ -34,12 +34,11 @@ That alone is sufficient to get it up and running immediately *without any persi
 ## Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
 
-
 | | |
 |-|-|
-|--volume /opt/docker/volumes/e2g/log:/app/log | |
-| | |
+|--volume /path/to/volumes/e2g/log:/app/log | sdf|
+|sdf |sdf |
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MjEwNTg1NjYsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbODkxMDEzNTc0LDcxODA1Nzg2MF19
 -->
