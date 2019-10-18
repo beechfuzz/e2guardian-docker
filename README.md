@@ -38,9 +38,9 @@ You can add the following arguments to the `docker run` command for better contr
 |-|-|
 |-v /path/to/config:/app/config|Make config files and lists persistent|
 |-v /path/to/log:/app/log| Make logs persistent|
-|-e /path/to/log:/app/log| Make logs persistent|
-
+|-e PUID=####| UID to set for the e2guardian user inside the container.  If you have issues |
+|-e PGID=####| Make logs persistent|
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzIzODI2NTgsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbMTU2MTA1MDAxMiw3MTgwNTc4NjBdfQ==
 -->
