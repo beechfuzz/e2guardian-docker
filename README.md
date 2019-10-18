@@ -47,7 +47,9 @@ The data on a container does not persist when that container no longer exists.  
 
 `/container/path` is the path inside of the container that will be made available to the local host.  
 
-In this container, you really only need the `/app/config` volume.  This is the location for all of the E2Guardian configuration files and lists.  Enabling this volume will allow you to make configuration changes without having to create a shell directly 
+In this container, you really only need the `/app/config` volume.  This is the location for all of the E2Guardian configuration files and lists.  Enabling this volume will allow you to make configuration changes without having to create a shell directly into the container.  
+
+Let's say you want the `/app/config` volume to be located at /docker/volumes/e2g/config
 
 ### UID/GID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
@@ -82,5 +84,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQwNjQ0MjE5LDcxODA1Nzg2MF19
+eyJoaXN0b3J5IjpbODY1Mjc0ODYsNzE4MDU3ODYwXX0=
 -->
