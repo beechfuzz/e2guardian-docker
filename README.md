@@ -119,13 +119,14 @@ Path | Description |
 /app  | Contains all files and directories for E2Guardian  |
 /app/config| Contains all E2Guardian configuration files and lists
 /app/config/e2guardian.conf| This is your main E2Guardian configuration file
-/app/config/examplef1.story| default filter group
-/app/config/e2guardianf1.confg|
+/app/config/examplef1.story| Storyboard file for the default filtergroup
+/app/config/e2guardianf1.confg|Config file for the default filtergroup
+
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk2ODQ2MDIxNiwtNTY4NjgwMzA4LDcyND
-U1NjgxMyw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbNDEwODgwNzk5LC01Njg2ODAzMDgsNzI0NT
+U2ODEzLDcxODA1Nzg2MF19
 -->
