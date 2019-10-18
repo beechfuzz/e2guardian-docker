@@ -65,7 +65,7 @@ The data on a container does not persist when that container no longer exists.  
 
 `/container/path` is the path inside of the container that will be made available to the local host.  
 
-In this container, you really only need the `/app/config` volume.  This is the location for all of the E2Guardian configuration files and lists.  Enabling this volume will allow you to make configuration changes without having to create a shell directly into the container.   
+In this container, you really only need the `/app/config` volume, and even still it's not necessary for operation -- you just won't have persistence.  `/app/config` is the location for all of the E2Guardian configuration files and lists.  Enabling this volume will allow you to make configuration changes without having to create a shell directly into the container.   
 
 This container also has an `/app/log` volume where the `access.log` file resides.  This volume is not necessary, but it is convenient to be able to access the log from within the host machine without having to shell directly into the container.
 
@@ -106,6 +106,6 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkwMDM4MzY1NCwtNTY4NjgwMzA4LDcyND
+eyJoaXN0b3J5IjpbMTUwODgyNDQzNCwtNTY4NjgwMzA4LDcyND
 U1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
