@@ -10,9 +10,9 @@ An [E2Guardian](https://github.com/e2guardian/e2guardian) Docker container with 
 
 I ripped that straight from their website: [http://www.e2guardian.org](http://www.e2guardian.org/).
 
-## Why This?
+## Why Did You Do This?
 
-Mostly because I wanted a way to document my E2Guardian setup and installation process in case I ever need to re-accomplish this again.  But also, I wanted to share with the world in case anyone else wants an easy-to-setup proxy.
+Mostly because I wanted a way to document my E2Guardian setup and installation process in case I ever need to re-accomplish this again.  But also, I wanted to share with the world in case anyone else wants an easy-to-setup content filter.
 
 ## Why Docker?
 
@@ -29,7 +29,7 @@ Installing and running is quite simple.  Assuming you already have [Docker insta
         --env PGID=1011 \
         beechfuzz/e2guardian
 
-That alone is sufficient to get it up and running immediately.  
+That alone is sufficient to get it up and running immediately *without any persistence*.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ0NTY2MDY3MV19
+eyJoaXN0b3J5IjpbNzE4MDU3ODYwXX0=
 -->
