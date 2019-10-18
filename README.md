@@ -19,7 +19,7 @@ Mostly because I wanted a way to document my E2Guardian setup and installation p
 Because running services in containerized environments makes installation, management, and administration much easier.  Additionally, it sandboxes your services so that they don't interfere with or interrupt the host system and other services.  Don't like or need E2Guardian anymore?  Easy, just remove the container and it's as if it never existed.
 
   
-
+&nbsp;
 
 
 # Quick Start
@@ -104,5 +104,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU5OTY3NzE2Miw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbMzQ3MjQ1Mjk4LDcxODA1Nzg2MF19
 -->
