@@ -2,6 +2,8 @@
 ### What Is This?
 An [E2Guardian](https://github.com/e2guardian/e2guardian) Docker container with SSL MITM enabled by default; a secondary proxy is not required.  This container is based on Alpine v3.8, which is how I keep the image so small.
 
+My goal for this container is to provide a quick and easy way to set up conte
+
 **CURRENT VERSION:  v5.3.3**
 
 ### What Is E2Guardian?
@@ -104,6 +106,6 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU2ODY4MDMwOCw3MjQ1NTY4MTMsNzE4MD
-U3ODYwXX0=
+eyJoaXN0b3J5IjpbMjA1MTcxNzYyMCwtNTY4NjgwMzA4LDcyND
+U1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
