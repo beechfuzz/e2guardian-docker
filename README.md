@@ -113,12 +113,12 @@ Alright, this section will get into more the nitty-gritty of how to run this con
  - SSL MITM
  
  ###  Important Directories/Files
- 
+ All E2Guardian files are contained within the `/app` directory in the container.  This makes managing it very simple.
 Path | Description |
 --|--|
 /app/  | Contains all files and directories for E2Guardian  |
 /app/config/| Contains all E2Guardian configuration files and lists
-/app/config/e2guardian.conf| This is your main E2Guardian configuration file
+/app/config/e2guardian.conf| Main E2Guardian configuration file
 /app/config/examplef1.story| Storyboard file for the default filtergroup
 /app/config/e2guardianf1.confg|Config file for the default filtergroup
 /app/config/lists/|Contains all of the E2Guardian lists
@@ -131,6 +131,6 @@ Path | Description |
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxNzEyNTI1MCwtNTY4NjgwMzA4LDcyND
-U1NjgxMyw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbNTQxNjUxNjc4LC01Njg2ODAzMDgsNzI0NT
+U2ODEzLDcxODA1Nzg2MF19
 -->
