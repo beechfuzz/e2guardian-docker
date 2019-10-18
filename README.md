@@ -109,12 +109,19 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 Alright, this section will get into more the nitty-gritty of how to run this container.  Here's a list of topics:
 
- - Container directory structure
+ - Important Directories/Files
  - SSL MITM
  
- ### Container Directory Structure
+ ###  Important Directories/Files
+ 
+| Path | Description |
+|--|--|
+|/app  |  |
+
+
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDQ2NDQxMTM3LC01Njg2ODAzMDgsNzI0NT
-U2ODEzLDcxODA1Nzg2MF19
+eyJoaXN0b3J5IjpbLTQzMzA2MjU3OCwtNTY4NjgwMzA4LDcyND
+U1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
