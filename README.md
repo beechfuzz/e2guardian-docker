@@ -23,12 +23,12 @@ Installing and running is quite simple.  Assuming you already have [Docker insta
 
     docker run -d --name="e2g" \
         --volume /opt/docker/volumes/e2g/config:/app/config
-        -v /opt/docker/volumes/e2g/log:/app/log
-        -p 8080:8080
+        --volume /opt/docker/volumes/e2g/log:/app/log
+        --publish 8080:8080
         --env PUID=1011
         --env PGID=1011
-        e2g:dockerfile
+        beechfuzz/e2guardian
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk4OTcyMjU0M119
+eyJoaXN0b3J5IjpbLTE1NDM3NTY4MDldfQ==
 -->
