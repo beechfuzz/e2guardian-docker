@@ -126,11 +126,10 @@ Path | Description |
 /app/config/ssl/generatedcerts/|Contains all of the upstream SSL certs used for MITM
 /app/config/ssl/servercerts/|Contains all of the SSL certs created during the build process
 
-
-
+ ###  SSL MITM
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTQxNjUxNjc4LC01Njg2ODAzMDgsNzI0NT
-U2ODEzLDcxODA1Nzg2MF19
+eyJoaXN0b3J5IjpbMTIzNTE1OTU1NiwtNTY4NjgwMzA4LDcyND
+U1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
