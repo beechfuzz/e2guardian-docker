@@ -36,9 +36,10 @@ You can add the following arguments to the `docker run` command for better contr
 
 | | |
 |-|-|
-|--volume /path/to/volumes/e2g/log:/app/log | sdf|
-|sdf |sdf |
+|-v /path/to/config:/app/config|sdf |
+|-v /path/to/log:/app/log| sdf|
+
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODkxMDEzNTc0LDcxODA1Nzg2MF19
+eyJoaXN0b3J5IjpbMTg0NDQwOTcwNCw3MTgwNTc4NjBdfQ==
 -->
