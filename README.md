@@ -49,7 +49,10 @@ The data on a container does not persist when that container no longer exists.  
 
 In this container, you really only need the `/app/config` volume.  This is the location for all of the E2Guardian configuration files and lists.  Enabling this volume will allow you to make configuration changes without having to create a shell directly into the container.  
 
-Let's say you want the `/app/config` volume to be located at /docker/volumes/e2g/config
+Let's say you want the `/app/config` volume to be located at `/docker/volumes/e2g/config` on the host.  You would add the following `-v` parameter to your `docker run` command:
+
+    -v /docker/volumes/e2g/config:/app/config
+
 
 ### UID/GID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
@@ -84,5 +87,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODY1Mjc0ODYsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbLTE1MDc0MzYyMDYsNzE4MDU3ODYwXX0=
 -->
