@@ -116,12 +116,14 @@ Alright, this section will get into more the nitty-gritty of how to run this con
  
 | Path | Description |
 |--|--|
-|/app  |  |
+|/app  | Contains all files and directories for E2Guardian  |
+|/app/config| Contains all E2Guardian configuration files and lists
+/app/config/e2guardian.conf|
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQzMzA2MjU3OCwtNTY4NjgwMzA4LDcyND
+eyJoaXN0b3J5IjpbMTI3MDAxMjY1OCwtNTY4NjgwMzA4LDcyND
 U1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
