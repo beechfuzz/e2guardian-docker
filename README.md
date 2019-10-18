@@ -42,7 +42,8 @@ You can add the following arguments to the `docker run` command for better contr
 The data on a container does not persist when that container no longer exists.   Therefore, we use volumes to enable persistent data within our containers.  You add a volume to a container via the `-v` parameter.  The syntax for the parameter is:
     
     -v /host/path:/container/path
-`/host/path` is the path on the local host machine where you wa
+
+`/host/path` is the path on the local host machine where you want the Docker volume to reside.  `/container/path` is the path inside of the container that will be made available to the local host.  
 
 ### UID/GID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
@@ -58,7 +59,7 @@ Basically, if the UID/GID of the account that runs the E2Guardian daemon inside 
 
 To find yours, run the  `id <user>`  command in your host.  Example:
 
-    $ ls -al /opt/docker/volumes/
+    $ ls -al /docker/volumes/
     drwxr-xr-x 14 root          root          4096 Oct 16 21:01 .
     drwxr-xr-x  3 root          root          4096 Aug 26 19:59 ..
     drwxr-xr-x  4 dockeruser    dockeruser    4096 Oct 18 15:52 e2g
@@ -77,5 +78,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ1NDAyOTE1Myw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbLTExODI4OTUxMzMsNzE4MDU3ODYwXX0=
 -->
