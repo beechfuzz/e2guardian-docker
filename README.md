@@ -51,8 +51,8 @@ From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-i
 > Ensure any volume directories on the host are owned by the same user
 > you specify and any permissions issues will vanish like magic.
 
-In this instance  `PUID=1000`  and  `PGID=1000`, to find yours use  `id user`  as below:
+The default in this container is  `PUID=1000`  and  `PGID=1000`.  To find yours use  `id user`  as below:
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTcyMjQ4NTU2LDcxODA1Nzg2MF19
+eyJoaXN0b3J5IjpbMTQ2NTEzODcyLDcxODA1Nzg2MF19
 -->
