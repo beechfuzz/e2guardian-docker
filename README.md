@@ -26,7 +26,7 @@ Installing and running is quite simple.  Assuming you already have [Docker insta
         --restart=unless-stopped \
         beechfuzz/e2guardian
 
-That alone is sufficient to get it up and running immediately *without any persistence*.  For persistent data, read below...
+This bare-bones command is enough to get it up and running immediately *without any persistence*.  If you want 
 
 ## Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
@@ -49,12 +49,11 @@ The data on a container does not persist when that container no longer exists.  
 
 In this container, you really only need the `/app/config` volume.  This is the location for all of the E2Guardian configuration files and lists.  Enabling this volume will allow you to make configuration changes without having to create a shell directly into the container.   
 
-This container also has an `/app/log` volume where the `access.log` file resides.  It's not necessary to make this 
+This container also has an `/app/log` volume where the `access.log` file resides.  This volume is not necessary, but it is convenient to be able to access the log from within the host machine without having to shell directly into the container.
 
 Let's say you want the `/app/config` volume in the container to be available at `/docker/volumes/e2g/config` on the host.  You would add the following `-v` parameter to your `docker run` command:
 
     -v /docker/volumes/e2g/config:/app/config
-
 
 ### UID/GID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
@@ -89,5 +88,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMzYwOTI3NTUsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbMTg5MTg3ODMwNSw3MTgwNTc4NjBdfQ==
 -->
