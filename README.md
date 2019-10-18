@@ -10,8 +10,8 @@ CURRENT VERSION:  v5.3.3
 I ripped that straight from their website: [http://www.e2guardian.org](http://www.e2guardian.org/).
 
 # Why?
-Because running services in containerized environments 
+Because running services in containerized environments makes installation, management, and administration much easier.  Additionally, it sandboxes your servic
  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzcxNDU1MTQwXX0=
+eyJoaXN0b3J5IjpbNjA5ODgyOTI2XX0=
 -->
