@@ -7,8 +7,11 @@ CURRENT VERSION:  v5.3.3
 
 > E2Guardian is an Open Source web content filter that can work in proxy, transparent, or ICAP server modes.  It filters the actual content of pages based on many methods including phrase matching, request header and URL filtering, etc.  It does not purely filter based on a banned list of sites.
 
-I
+I ripped that straight from their website: [http://www.e2guardian.org](http://www.e2guardian.org/).
+
+# Why?
+Because running services in containerized environments 
  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTYwNjMyODI1XX0=
+eyJoaXN0b3J5IjpbNzcxNDU1MTQwXX0=
 -->
