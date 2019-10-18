@@ -38,6 +38,9 @@ You can add the following arguments to the `docker run` command for better contr
 |-e PUID=####| Specify UID to use inside the container.  More info below.|
 |-e PGID=####| Specify GID to use inside the container.  More info below.|
 
+### Volumes and Persistence
+Volumes are used to enable some sort of persistence with your con
+
 ### UID/GID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
 
@@ -71,5 +74,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NzAwMjcxODMsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbMTIwMTEzODkyNiw3MTgwNTc4NjBdfQ==
 -->
