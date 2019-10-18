@@ -30,6 +30,14 @@ This is enough to get it up and running immediately *without any persistence*.
 
 If you want persistent data, then run the following command instead:
 
+    docker run -d --name="e2guardian" \
+        -v /path/to/config:/app/config \
+        -v /path/to/log:/app/log \
+        -p 8080:8080 \
+        -e PUID=#### \
+        -e PGID=#### \
+        --restart=unless-stopped \
+        beechfuzz/e2guardian
 
 ## Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
@@ -91,5 +99,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTcyNTU3OTc1NCw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbLTE4MTQ1ODg4ODIsNzE4MDU3ODYwXX0=
 -->
