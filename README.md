@@ -42,7 +42,7 @@ If you want persistent data, then run the following command instead:
         -e PGID=#### \
         --restart=unless-stopped \
         beechfuzz/e2guardian
-You can read more about the `-v` parameter, and the `PUID` and `PGID` variables in the _Optional Arguments_ section below.
+You can read more about the `-v` parameter, and the `PUID` and `PGID` variables in the [Optional Arguments](https://github.com/beechfuzz/e2guardian-docker/tree/master#optional-arguments) section below.
 
 ### Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
@@ -104,5 +104,6 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzI0NTU2ODEzLDcxODA1Nzg2MF19
+eyJoaXN0b3J5IjpbNDY0MDY5MDU2LDcyNDU1NjgxMyw3MTgwNT
+c4NjBdfQ==
 -->
