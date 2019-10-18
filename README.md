@@ -9,10 +9,10 @@ CURRENT VERSION:  v5.3.3
 
 I ripped that straight from their website: [http://www.e2guardian.org](http://www.e2guardian.org/).
 
-# Why?
-Because running services in containerized environments makes installation, management, and administration much easier.  Additionally, it sandboxes your services so that they don't interfere with or interrupt the host system and other services.
+# Why This?
+Mostly because I wanted a way to document my E2Guardian setup and installation process in case I ever need to re-accomplish this again.  But also, I wanted to share with the world in case anyone else needs a  Because running services in containerized environments makes installation, management, and administration much easier.  Additionally, it sandboxes your services so that they don't interfere with or interrupt the host system and other services.
  
  I specifically made this for E2Guardian because I need a way
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTcxNjc4NTY4NF19
+eyJoaXN0b3J5IjpbMTQ5NjU5NjQxNl19
 -->
