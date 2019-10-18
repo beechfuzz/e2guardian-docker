@@ -63,7 +63,9 @@ To find yours, run the  `id <user>`  command in your host.  Example:
     $ id dockeruser
      uid=1011(dockeruser) gid=1011(dockeruser) groups=1011(dockeruser)
 
-In the output of the first command, you can see that the `dockeruser` account owns the `e2g` folder (which will be used for the volume) on the host.    Running `id 
+In the output of the first command, you can see that the `dockeruser` account owns the `e2g` folder (which will be used for the volume) on the host.    Running `id dockeruser` outputs the UID and GID.  Therefore, I would add `-e PUID=1011` and `-e PGID=1011` to my `docker run` command, like so:
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE3MTAwODY3Niw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbMzYzMjkxNjIzLDcxODA1Nzg2MF19
 -->
