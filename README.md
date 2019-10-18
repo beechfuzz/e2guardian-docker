@@ -21,8 +21,14 @@ Because running services in containerized environments makes installation, manag
 # Quick Start
 Installing and running is quite simple.  Assuming you already have [Docker installed](https://docs.docker.com/v17.09/engine/installation/), just run the following Docker command to get it up and running:
 
-    enter code here
+    docker run -d --name="e2g" \
+        --volume /opt/docker/volumes/e2g/config:/app/config
+        -v /opt/docker/volumes/e2g/log:/app/log
+        -p 8080:8080
+        --env PUID=1011
+        --env PGID=1011
+        e2g:dockerfile
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MTQxNzIyMTRdfQ==
+eyJoaXN0b3J5IjpbMTk4OTcyMjU0M119
 -->
