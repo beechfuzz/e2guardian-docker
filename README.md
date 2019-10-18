@@ -123,14 +123,14 @@ Path | Description |
 /app/config/e2guardianf1.confg|Config file for the default filtergroup
 /app/config/lists/|Contains all of the E2Guardian lists
 /app/config/ssl/| Contains all of the SSL certs and keys for SSL MITM
-/app/config/ssl/generatedcerts|
-/app/config/ssl/servercerts|
+/app/config/ssl/generatedcerts/|Contains all of the upstream SSL certs used for MITM
+/app/config/ssl/servercerts/|Contains all of the SSL certs created during the build process
 
 
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI2NzM5NDIxMywtNTY4NjgwMzA4LDcyND
+eyJoaXN0b3J5IjpbLTIxNzEyNTI1MCwtNTY4NjgwMzA4LDcyND
 U1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
