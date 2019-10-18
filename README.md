@@ -19,14 +19,17 @@ Mostly because I wanted a way to document my E2Guardian setup and installation p
 Because running services in containerized environments makes installation, management, and administration much easier.  Additionally, it sandboxes your services so that they don't interfere with or interrupt the host system and other services.  Don't like or need E2Guardian anymore?  Easy, just remove the container and it's as if it never existed.
 
 # Quick Start
-Installing and running is quite simple.  Assuming you already have [Docker installed](https://docs.docker.com/v17.09/engine/installation/), just run the following Docker command to get it up and running:
+Installing and running is quite simple.  Assuming you already have [Docker installed](https://docs.docker.com/v17.09/engine/installation/), just run the following 'bare-bones' Docker command to get it up and running:
 
     docker run -d --name="e2guardian" \
         --publish 8080:8080 \
         --restart=unless-stopped \
         beechfuzz/e2guardian
 
-This bare-bones command is enough to get it up and running immediately *without any persistence*.  If you want 
+This is enough to get it up and running immediately *without any persistence*.  
+
+If you want persistent data, then run the following command instead:
+
 
 ## Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
@@ -88,5 +91,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg5MTg3ODMwNSw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbLTcyNTU3OTc1NCw3MTgwNTc4NjBdfQ==
 -->
