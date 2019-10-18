@@ -44,17 +44,17 @@ If you want persistent data, then run the following command instead:
         beechfuzz/e2guardian
 You can read more about the `-v` parameter, and the `PUID` and `PGID` variables in the _Optional Arguments_ section below.
 
-## Optional Arguments
+### Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
 
 |Argument |Meaning |
 |-|-|
-|-v /path/to/config:/app/config|Make config files and lists persistent|
-|-v /path/to/log:/app/log| Make logs persistent|
-|-e PUID=####| Specify UID to use inside the container.  More info below.|
-|-e PGID=####| Specify GID to use inside the container.  More info below.|
+|`-v /path/to/config:/app/config`|Make config files and lists persistent|
+|`-v /path/to/log:/app/log`| Make logs persistent|
+|`-e PUID=####`| Specify UID to use inside the container.  More info below.|
+|`-e PGID=####`| Specify GID to use inside the container.  More info below.|
 
-### Persistence and Volumes
+#### Persistence and Volumes
 The data on a container does not persist when that container no longer exists.   Therefore, we use volumes to enable persistent data within our containers.  You add a volume to a container via the `-v` parameter.  The syntax for the parameter is:
     
     -v /host/path:/container/path
@@ -71,7 +71,7 @@ Let's say you want the `/app/config` volume in the container to be available at 
 
     -v /docker/volumes/e2g/config:/app/config
 
-### PUID/PGID
+#### PUID/PGID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
 
 > When using volumes (`-v` flags) permissions issues can arise between
@@ -104,5 +104,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY5MDI2OTU1MCw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbNzI0NTU2ODEzLDcxODA1Nzg2MF19
 -->
