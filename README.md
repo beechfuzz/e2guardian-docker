@@ -21,14 +21,14 @@ Because running services in containerized environments makes installation, manag
 # Quick Start
 Installing and running is quite simple.  Assuming you already have [Docker installed](https://docs.docker.com/v17.09/engine/installation/), just run the following Docker command to get it up and running:
 
-    docker run -d --name="e2g" \
-        --volume /opt/docker/volumes/e2g/config:/app/config
-        --volume /opt/docker/volumes/e2g/log:/app/log
-        --publish 8080:8080
-        --env PUID=1011
-        --env PGID=1011
+    docker run -d --name="e2guardian" \
+        --volume /opt/docker/volumes/e2g/config:/app/config \
+        --volume /opt/docker/volumes/e2g/log:/app/log \
+        --publish 8080:8080 \
+        --env PUID=1011 \
+        --env PGID=1011 \
         beechfuzz/e2guardian
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NDM3NTY4MDldfQ==
+eyJoaXN0b3J5IjpbLTEzODM2MzYyMTddfQ==
 -->
