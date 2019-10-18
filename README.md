@@ -38,8 +38,8 @@ You can add the following arguments to the `docker run` command for better contr
 |-e PUID=####| Specify UID to use inside the container.  More info below.|
 |-e PGID=####| Specify GID to use inside the container.  More info below.|
 
-### Volumes and Persistence
-Volumes are used to enable persistent data for your containers.  If your container gets removed, 
+### Persistence and Volumes
+The data on a container does not persist when that container no longer exists.   Therefore, we use volumes to enable persistent data within our containers.   
 
 ### UID/GID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
@@ -74,5 +74,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMjA3NDIxMiw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbMjY4MTE2ODM5LDcxODA1Nzg2MF19
 -->
