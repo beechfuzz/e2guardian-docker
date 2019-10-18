@@ -34,13 +34,14 @@ That alone is sufficient to get it up and running immediately *without any persi
 ## Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
 
-| | |
+|Argument |Meaning |
 |-|-|
 |-v /path/to/config:/app/config|Make config files and lists persistent|
 |-v /path/to/log:/app/log| Make logs persistent|
 |-e PUID=####| Specify UID to use inside the container.  More info below.|
 |-e PGID=####| Specify GID to use inside the container.  More info below.|
 
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ5Mjk5MDA5NCw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbLTEwMjAxNzYwNzYsNzE4MDU3ODYwXX0=
 -->
