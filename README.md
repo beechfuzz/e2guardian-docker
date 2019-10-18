@@ -77,7 +77,7 @@ From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-i
 > Ensure any volume directories on the host are owned by the same user
 > you specify and any permissions issues will vanish like magic.
 
-Basically, if the UID/GID of the account that runs the E2Guardian daemon inside the container doesn't match the UID/GID of the account on the host that owns the volumes, then you may run into issues.  The  `PUID` and `PGID` variables fix that by changing the UID and GID of the e2guardian user account inside the container.  Therefore, it's advisable to set the PUID and PGID variables to the UID and GID of the user on the host that will be owning the volume.  The default in this container is  `PUID=1000`  and  `PGID=1000`.  
+Basically, if the UID/GID of the account that runs the E2Guardian daemon inside the container doesn't match the UID/GID of the account on the host that owns the volumes, then you may run into permissions issues.  The  `PUID` and `PGID` environment variables fix that by changing the UID and GID of the e2guardian user account inside the container.  Therefore, it's advisable to set the `PUID` and `PGID` variables to the UID and GID of the user on the host that will be owning the volume.  The default in this container is  `PUID=1000`  and  `PGID=1000`.  
 
 To find yours, run the  `id <user>`  command in your host.  Example:
 
@@ -100,5 +100,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTUwMjg1MTMwNyw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbLTcxNzg4ODIyNiw3MTgwNTc4NjBdfQ==
 -->
