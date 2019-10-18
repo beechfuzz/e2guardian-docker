@@ -51,11 +51,11 @@ From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-i
 > Ensure any volume directories on the host are owned by the same user
 > you specify and any permissions issues will vanish like magic.
 
-Basically, this will change the UID and GID of the e2guardian user account The default in this container is  `PUID=1000`  and  `PGID=1000`.  To find yours, use the  `id user`  command in your host.  Example:
+Basically, `PUID` and `PGID` variables will change the UID and GID of the e2guardian user account inside the container.  The default in this container is  `PUID=1000`  and  `PGID=1000`.  To find yours, use the  `id user`  command in your host.  Example:
 
     $ id dockeruser
      uid=1011(dockeruser) gid=1011(dockeruser) groups=1011(dockeruser)
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0MDU0MDc5ODksNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbLTEyNjQ4Mjk3NDEsNzE4MDU3ODYwXX0=
 -->
