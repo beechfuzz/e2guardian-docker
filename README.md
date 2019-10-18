@@ -22,7 +22,7 @@ Because running services in containerized environments makes installation, manag
 Installing and running is quite simple.  Assuming you already have [Docker installed](https://docs.docker.com/v17.09/engine/installation/), just run the following 'bare-bones' Docker command to get it up and running:
 
     docker run -d --name="e2guardian" \
-        --publish 8080:8080 \
+        -p 8080:8080 \
         --restart=unless-stopped \
         beechfuzz/e2guardian
 
@@ -38,7 +38,7 @@ If you want persistent data, then run the following command instead:
         -e PGID=#### \
         --restart=unless-stopped \
         beechfuzz/e2guardian
-You can read more about the `-v`, `PUID`, and `PGID` parameters in the _Optional Arguments_ section below.
+You can read more about the `-v` parameter, and the `PUID` and `PGID` variables in the _Optional Arguments_ section below.
 
 ## Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
@@ -55,7 +55,7 @@ The data on a container does not persist when that container no longer exists.  
     
     -v /host/path:/container/path
 
-`/host/path` is the path on the local host machine where you want the Docker volume to reside, and can be anywhere you want, as long as the user account that is running the Docker daemon can read/write to it (more info in _'UID/GID'_ section below).  
+`/host/path` is the path on the local host machine where you want the Docker volume to reside, and can be anywhere you want, as long as the user account that is running the Docker daemon can read/write to it (more info in _'PUID/PGID'_ section below).  
 
 `/container/path` is the path inside of the container that will be made available to the local host.  
 
@@ -67,7 +67,7 @@ Let's say you want the `/app/config` volume in the container to be available at 
 
     -v /docker/volumes/e2g/config:/app/config
 
-### UID/GID
+### PUID/PGID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
 
 > When using volumes (`-v` flags) permissions issues can arise between
@@ -93,12 +93,12 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
     docker run -d --name="e2guardian" \
         -v /docker/volumes/e2g/config:/app/config \
-        --publish 8080:8080 \
-        --env PUID=1011 \
-        --env PGID=1011 \
+        -p 8080:8080 \
+        -e PUID=1011 \
+        -e PGID=1011 \
         beechfuzz/e2guardian
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA5NDIzMDUzNyw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbMTUwMjg1MTMwNyw3MTgwNTc4NjBdfQ==
 -->
