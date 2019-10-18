@@ -19,7 +19,10 @@ Mostly because I wanted a way to document my E2Guardian setup and installation p
 Because running services in containerized environments makes installation, management, and administration much easier.  Additionally, it sandboxes your services so that they don't interfere with or interrupt the host system and other services.  Don't like or need E2Guardian anymore?  Easy, just remove the container and it's as if it never existed.
 
 # Quick Start
-Installing and running is quite simple.  Assuming you already have [Docker installed](https://docs.docker.com/v17.09/engine/installation/), just run the following Docker command to get 
+Installing and running is quite simple.  Assuming you already have [Docker installed](https://docs.docker.com/v17.09/engine/installation/), just run the following Docker command to get it up and running:
+
+    enter code here
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4NTA4NzEwODNdfQ==
+eyJoaXN0b3J5IjpbLTE2MTQxNzIyMTRdfQ==
 -->
