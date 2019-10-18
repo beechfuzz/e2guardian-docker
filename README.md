@@ -38,6 +38,7 @@ If you want persistent data, then run the following command instead:
         -e PGID=#### \
         --restart=unless-stopped \
         beechfuzz/e2guardian
+You can read more about the `-v`, `PUID`, and `PGID` parameters in the _Optional Arguments_ section below.
 
 ## Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
@@ -91,7 +92,7 @@ To find yours, run the  `id <user>`  command in your host.  Example:
 In the output of the first command, you can see that the `dockeruser` account owns the `e2g` folder (which will be used for the volume) on the host.    Running `id dockeruser` outputs the UID and GID.  Therefore, I would add `-e PUID=1011` and `-e PGID=1011` to my `docker run` command, like so:
 
     docker run -d --name="e2guardian" \
-        --volume /docker/volumes/e2g/config:/app/config \
+        -v /docker/volumes/e2g/config:/app/config \
         --publish 8080:8080 \
         --env PUID=1011 \
         --env PGID=1011 \
@@ -99,5 +100,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4MTQ1ODg4ODIsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbMTA5NDIzMDUzNyw3MTgwNTc4NjBdfQ==
 -->
