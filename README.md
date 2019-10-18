@@ -36,10 +36,11 @@ You can add the following arguments to the `docker run` command for better contr
 
 | | |
 |-|-|
-|-v /path/to/config:/app/config|sdf |
-|-v /path/to/log:/app/log| sdf|
+|-v /path/to/config:/app/config|Make config files and lists persistent|
+|-v /path/to/log:/app/log| Make logs persistent|
+|-e /path/to/log:/app/log| Make logs persistent|
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg0NDQwOTcwNCw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbMzIzODI2NTgsNzE4MDU3ODYwXX0=
 -->
