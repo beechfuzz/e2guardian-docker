@@ -30,6 +30,9 @@ Installing and running is quite simple.  Assuming you already have [Docker insta
         beechfuzz/e2guardian
 
 That alone is sufficient to get it up and running immediately *without any persistence*.
+
+## Optional A
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbOTMyMDYyMTEzLDcxODA1Nzg2MF19
 -->
