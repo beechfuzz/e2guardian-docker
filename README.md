@@ -105,9 +105,13 @@ In the output of the first command, you can see that the `dockeruser` account ow
         -e PGID=1011 \
         beechfuzz/e2guardian
 
-## Deep
+## Deep-Dive
+
+Alright, this section will get into more the nitty-gritty of how to run this container.  Here's a list of topics:
+
+ - E2G
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzM3NDY3Mjg2LC01Njg2ODAzMDgsNzI0NT
-U2ODEzLDcxODA1Nzg2MF19
+eyJoaXN0b3J5IjpbLTE2MTYwNjkwMDYsLTU2ODY4MDMwOCw3Mj
+Q1NTY4MTMsNzE4MDU3ODYwXX0=
 -->
