@@ -43,7 +43,7 @@ The data on a container does not persist when that container no longer exists.  
     
     -v /host/path:/container/path
 
-`/host/path` is the path on the local host machine where you want the Docker volume to reside.  `/container/path` is the path inside of the container that will be made available to the local host.  
+`/host/path` is the path on the local host machine where you want the Docker volume to reside, and can be anywhere you want, as long as the user account that is running the Docker daemon can read/write to it (more info in **'UID/GID'** section below).  `/container/path` is the path inside of the container that will be made available to the local host.  
 
 ### UID/GID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
@@ -70,7 +70,7 @@ To find yours, run the  `id <user>`  command in your host.  Example:
 In the output of the first command, you can see that the `dockeruser` account owns the `e2g` folder (which will be used for the volume) on the host.    Running `id dockeruser` outputs the UID and GID.  Therefore, I would add `-e PUID=1011` and `-e PGID=1011` to my `docker run` command, like so:
 
     docker run -d --name="e2guardian" \
-        --volume /opt/docker/volumes/e2g/config:/app/config \
+        --volume /docker/volumes/e2g/config:/app/config \
         --publish 8080:8080 \
         --env PUID=1011 \
         --env PGID=1011 \
@@ -78,5 +78,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExODI4OTUxMzMsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbMTMzNTAzMTA4NSw3MTgwNTc4NjBdfQ==
 -->
