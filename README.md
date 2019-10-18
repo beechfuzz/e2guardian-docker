@@ -43,11 +43,11 @@ The data on a container does not persist when that container no longer exists.  
     
     -v /host/path:/container/path
 
-`/host/path` is the path on the local host machine where you want the Docker volume to reside, and can be anywhere you want, as long as the user account that is running the Docker daemon can read/write to it (more info in **'UID/GID'** section below).  
+`/host/path` is the path on the local host machine where you want the Docker volume to reside, and can be anywhere you want, as long as the user account that is running the Docker daemon can read/write to it (more info in _'UID/GID'_ section below).  
 
 `/container/path` is the path inside of the container that will be made available to the local host.  
 
-In this container, I've specifically made the /app/config and /app/log
+In this container, you really only need the /app/config volume.
 
 ### UID/GID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
@@ -82,5 +82,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NDY3NzAyNjEsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbLTE5MzQ5NzY4NjcsNzE4MDU3ODYwXX0=
 -->
