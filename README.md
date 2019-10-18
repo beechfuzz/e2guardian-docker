@@ -39,7 +39,7 @@ You can add the following arguments to the `docker run` command for better contr
 |-e PGID=####| Specify GID to use inside the container.  More info below.|
 
 ### Persistence and Volumes
-The data on a container does not persist when that container no longer exists.   Therefore, we use volumes to enable persistent data within our containers.  You add a volume to a container via the `-v </local/path>:</container/path>` 
+The data on a container does not persist when that container no longer exists.   Therefore, we use volumes to enable persistent data within our containers.  You add a volume to a container via the `-v` parameter.  The syntax for the parameter is `-v /path/on/local/host:/path/on/container` 
 
 ### UID/GID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
@@ -74,5 +74,5 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkzMjIzMDI0NCw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbLTEyNjIyNjAyMDAsNzE4MDU3ODYwXX0=
 -->
