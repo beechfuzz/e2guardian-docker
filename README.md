@@ -56,11 +56,14 @@ Basically, if the UID/GID of the account that runs the E2Guardian daemon inside 
 To find yours, run the  `id <user>`  command in your host.  Example:
 
     $ ls -al /opt/docker/volumes/
-    
-    
+    drwxr-xr-x 14 root          root          4096 Oct 16 21:01 .
+    drwxr-xr-x  3 root          root          4096 Aug 26 19:59 ..
+    drwxr-xr-x  4 dockeruser    dockeruser    4096 Oct 18 15:52 e2g
+
     $ id dockeruser
      uid=1011(dockeruser) gid=1011(dockeruser) groups=1011(dockeruser)
 
+In the output of the first command, you can see the 'dockeruser' account owns the 'e2g' volume.  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk3NTYxODg3NCw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbMTA4Mzk1MjE3OSw3MTgwNTc4NjBdfQ==
 -->
