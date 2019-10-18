@@ -109,9 +109,12 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 Alright, this section will get into more the nitty-gritty of how to run this container.  Here's a list of topics:
 
- - E2G
+ - Container directory structure
+ - SSL MITM
+ 
+ ### Container Directory Structure
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MTYwNjkwMDYsLTU2ODY4MDMwOCw3Mj
-Q1NTY4MTMsNzE4MDU3ODYwXX0=
+eyJoaXN0b3J5IjpbNDQ2NDQxMTM3LC01Njg2ODAzMDgsNzI0NT
+U2ODEzLDcxODA1Nzg2MF19
 -->
