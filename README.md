@@ -48,6 +48,7 @@ You can read more about the `-v` parameter, and the `PUID` and `PGID` variables 
 
 ### Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
+
 |Argument |Meaning |
 |-|-|
 |`-v /path/to/config:/app/config`|Make config files and lists persistent|
