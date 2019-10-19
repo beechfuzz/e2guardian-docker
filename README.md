@@ -111,7 +111,7 @@ Alright, this section will get into more the nitty-gritty of how to run this con
 
  1. Important Directories/Files
  2. SSL MITM
- 3. Blanket Blacklisting
+ 3. Blanket Blocking
  
  ###  Important Directories/Files
  All E2Guardian files are contained within the `/app` directory in the container.  This makes managing it very simple.
@@ -146,8 +146,11 @@ If the container already exists, then you can just make a few configuration chan
 
 Then, in the host, restart the container: `docker restart e2guardian`
 
+ ###  Blanket Blocking
+ By default, E2Guardian does no IP, URL, or domain blocking -- only content filtering.
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIwNzgyMTcyMCwtMjAxNzkzODAxNyw5MT
+eyJoaXN0b3J5IjpbMTE3Nzk5Mzk5NiwtMjAxNzkzODAxNyw5MT
 EyODAwNDAsNjUxODA5ODksMTIzNTE1OTU1NiwtNTY4NjgwMzA4
 LDcyNDU1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
