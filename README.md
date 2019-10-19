@@ -114,6 +114,7 @@ Alright, this section will get into more the nitty-gritty of how to run this con
 
 ##  Important Directories/Files
  All E2Guardian files are contained within the `/app` directory in the container.  This makes managing it very simple.
+
 Path | Description |
 --|--|
 /app/  | Contains all files and directories for E2Guardian  |
