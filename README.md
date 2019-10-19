@@ -150,10 +150,10 @@ If the container already exists, then you can just make a few configuration chan
 Then, in the host, restart the container: `docker restart e2guardian`
 
  ###  Blanket Blocking
- By default, E2Guardian does no IP, URL, or domain blocking -- only content filtering.  If you want E2Guardian to block everything by default (blanket block) and only allow specific things, then you will need to make the following changes in `/app/configure/examplef1.story
-
+ By default, E2Guardian does no IP, URL, or domain blocking -- only content filtering.  If you want E2Guardian to block everything by default (blanket blocking) and only allow specific things, then you will need to make the following changes in `/app/configure/examplef1.story`:
+* Find the 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk3NTUwMDU1LC0yMDE3OTM4MDE3LDkxMT
+eyJoaXN0b3J5IjpbNjYxOTYxMjUxLC0yMDE3OTM4MDE3LDkxMT
 I4MDA0MCw2NTE4MDk4OSwxMjM1MTU5NTU2LC01Njg2ODAzMDgs
 NzI0NTU2ODEzLDcxODA1Nzg2MF19
 -->
