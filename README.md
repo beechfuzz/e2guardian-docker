@@ -1,5 +1,4 @@
-## Quick Info
-### What Is This?
+# Quick Info
 An [E2Guardian](https://github.com/e2guardian/e2guardian) Docker container with SSL MITM enabled by default; a secondary proxy is not required.  This container is based on Alpine v3.8, which is how I keep the image so small.
 
 My goal for this container is to provide a quick and easy way to set up content filtering without too much configuration from the user.  Therefore, SSL MITM is enabled by default and SSL certs are created automatically during building.  For the most part, all the user needs to do is to manage the lists to their liking.
@@ -112,8 +111,8 @@ Alright, this section will get into more the nitty-gritty of how to run this con
  1. Important Directories/Files
  2. SSL MITM
  3. Blanket Blocking
- 
- ###  Important Directories/Files
+
+###  Important Directories/Files
  All E2Guardian files are contained within the `/app` directory in the container.  This makes managing it very simple.
 Path | Description |
 --|--|
@@ -182,7 +181,7 @@ Then, in the host, restart the container: `docker restart e2guardian`
 
 Then, restart the container: `docker restart e2guardian`.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQzMjQ1MTQyNiwtMjAxNzkzODAxNyw5MT
-EyODAwNDAsNjUxODA5ODksMTIzNTE1OTU1NiwtNTY4NjgwMzA4
-LDcyNDU1NjgxMyw3MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbMjE0NjA0MzQwMSwtNDMyNDUxNDI2LC0yMD
+E3OTM4MDE3LDkxMTI4MDA0MCw2NTE4MDk4OSwxMjM1MTU5NTU2
+LC01Njg2ODAzMDgsNzI0NTU2ODEzLDcxODA1Nzg2MF19
 -->
