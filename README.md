@@ -23,7 +23,7 @@ Because running services in containerized environments makes installation, manag
 &nbsp;
 
 
-## Quick Start
+# Quick Start
 Installing and running is quite simple.  Assuming you already have [Docker installed](https://docs.docker.com/v17.09/engine/installation/), just run the following 'bare-bones' Docker command to get it up and running:
 
     docker run -d --name="e2guardian" \
@@ -48,7 +48,6 @@ You can read more about the `-v` parameter, and the `PUID` and `PGID` variables 
 
 ### Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
-
 |Argument |Meaning |
 |-|-|
 |`-v /path/to/config:/app/config`|Make config files and lists persistent|
@@ -56,7 +55,7 @@ You can add the following arguments to the `docker run` command for better contr
 |`-e PUID=####`| Specify UID to use inside the container.  [More info](#puidpgid) below.|
 |`-e PGID=####`| Specify GID to use inside the container.  [More info](#puidpgid) below.|
 
-#### Persistence and Volumes
+## Persistence and Volumes
 The data on a container does not persist when that container no longer exists.   Therefore, we use volumes to enable persistent data within our containers.  You add a volume to a container via the `-v` parameter.  The syntax for the parameter is:
     
     -v /host/path:/container/path
@@ -73,7 +72,7 @@ Let's say you want the `/app/config` volume in the container to be available at 
 
     -v /docker/volumes/e2g/config:/app/config
 
-#### PUID/PGID
+### PUID/PGID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
 
 > When using volumes (`-v` flags) permissions issues can arise between
@@ -181,7 +180,7 @@ Then, in the host, restart the container: `docker restart e2guardian`
 
 Then, restart the container: `docker restart e2guardian`.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjE0NjA0MzQwMSwtNDMyNDUxNDI2LC0yMD
-E3OTM4MDE3LDkxMTI4MDA0MCw2NTE4MDk4OSwxMjM1MTU5NTU2
-LC01Njg2ODAzMDgsNzI0NTU2ODEzLDcxODA1Nzg2MF19
+eyJoaXN0b3J5IjpbLTE1NTc4NTQyOTcsLTQzMjQ1MTQyNiwtMj
+AxNzkzODAxNyw5MTEyODAwNDAsNjUxODA5ODksMTIzNTE1OTU1
+NiwtNTY4NjgwMzA4LDcyNDU1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
