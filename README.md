@@ -109,8 +109,8 @@ In the output of the first command, you can see that the `dockeruser` account ow
 
 Alright, this section will get into more the nitty-gritty of how to run this container.  Here's a list of topics:
 
- - Important Directories/Files
- - SSL MITM
+ 1. Important Directories/Files
+ 2. SSL MITM
  
  ###  Important Directories/Files
  All E2Guardian files are contained within the `/app` directory in the container.  This makes managing it very simple.
@@ -127,9 +127,13 @@ Path | Description |
 /app/config/ssl/servercerts/|Contains all of the SSL certs created during the build process
 
  ###  SSL MITM
-By default,
+SSL MITM is enabled by default in this container.  If you want to disable it, then you have two options: 
+
+ . List item
+
+you can pass the `SSLMITM=off` argument 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDAyNjQ2ODcyLDEyMzUxNTk1NTYsLTU2OD
+eyJoaXN0b3J5IjpbMTY4MTU3Mjc3LDEyMzUxNTk1NTYsLTU2OD
 Y4MDMwOCw3MjQ1NTY4MTMsNzE4MDU3ODYwXX0=
 -->
