@@ -135,10 +135,10 @@ SSL MITM is enabled by default in this container.  If you want to disable it, th
     
  2. Or, start the container and make the following edits:
  a. In `/app/e2guardian.conf`, find the line that says `enablessl = on` and change it to `enablessl = off`.
- b. In 
+ b. In `/app/e2guardianf1.conf`
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTEwMjYyMzA2Miw5MTEyODAwNDAsNjUxOD
-A5ODksMTIzNTE1OTU1NiwtNTY4NjgwMzA4LDcyNDU1NjgxMyw3
-MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbLTE4NzU1MTI4MzAsOTExMjgwMDQwLDY1MT
+gwOTg5LDEyMzUxNTk1NTYsLTU2ODY4MDMwOCw3MjQ1NTY4MTMs
+NzE4MDU3ODYwXX0=
 -->
