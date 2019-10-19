@@ -152,9 +152,8 @@ Then, in the host, restart the container: `docker restart e2guardian`
  ###  Blanket Blocking
  By default, E2Guardian does no IP, URL, or domain blocking -- only content filtering.  If you want E2Guardian to block everything by default (blanket blocking) and only allow specific things, then you will need to make the following changes in `/app/configure/examplef1.story`:
 * Find the section that looks like this: 
-
-    \# To create blanket block for http
-*     \#uncomment next line and one condition line.
+     `# To create blanket block for http`
+   `# uncomment next line and one condition line.`
 
 # uncomment next line and one condition line.
 
@@ -165,7 +164,7 @@ Then, in the host, restart the container: `docker restart e2guardian`
 #if(siteisip,,505) return setblock # = *ip ip blanket
 * 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTk5MjE1MDg2LC0yMDE3OTM4MDE3LDkxMT
-I4MDA0MCw2NTE4MDk4OSwxMjM1MTU5NTU2LC01Njg2ODAzMDgs
-NzI0NTU2ODEzLDcxODA1Nzg2MF19
+eyJoaXN0b3J5IjpbLTg1ODg2OTYyNiwtMjAxNzkzODAxNyw5MT
+EyODAwNDAsNjUxODA5ODksMTIzNTE1OTU1NiwtNTY4NjgwMzA4
+LDcyNDU1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
