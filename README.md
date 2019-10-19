@@ -130,17 +130,18 @@ Path | Description |
 SSL MITM is enabled by default in this container.  If you want to disable it, then you have two options: 
 
 #### Option 1: 
-You can build the Docker image with the Dockerfile and include the `SSLMITM=off` argument in the command, like so:
+You can manually `build` the Docker image with the Dockerfile and include the `SSLMITM=off` argument in the command, like so:
     
-        docker build -t e2g --build-arg SSLMITM=off .
-    
+        docker build -t e2guardian --build-arg SSLMITM=off .
+
+This will build the image with the 
  2. Or, start the container:
  2a. make the following edits:
  In `/app/e2guardian.conf`, find the line that says `enablessl = on` and change it to `enablessl = off`.
  b. In `/app/e2guardianf1.conf`
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNjI1OTgzNiw5MTEyODAwNDAsNjUxOD
+eyJoaXN0b3J5IjpbMTk4MTY4MTU4NCw5MTEyODAwNDAsNjUxOD
 A5ODksMTIzNTE1OTU1NiwtNTY4NjgwMzA4LDcyNDU1NjgxMyw3
 MTgwNTc4NjBdfQ==
 -->
