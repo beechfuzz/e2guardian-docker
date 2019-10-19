@@ -72,7 +72,7 @@ Let's say you want the `/app/config` volume in the container to be available at 
 
     -v /docker/volumes/e2g/config:/app/config
 
-### PUID/PGID
+## PUID/PGID
 From [linuxserver.io](https://github.com/linuxserver/docker-nzbget#user--group-identifiers):
 
 > When using volumes (`-v` flags) permissions issues can arise between
@@ -103,7 +103,7 @@ In the output of the first command, you can see that the `dockeruser` account ow
         -e PGID=1011 \
         beechfuzz/e2guardian
 
-## Deep-Dive
+# Deep-Dive
 
 Alright, this section will get into more the nitty-gritty of how to run this container.  Here's a list of topics:
 
@@ -111,7 +111,7 @@ Alright, this section will get into more the nitty-gritty of how to run this con
  2. SSL MITM
  3. Blanket Blocking
 
-###  Important Directories/Files
+##  Important Directories/Files
  All E2Guardian files are contained within the `/app` directory in the container.  This makes managing it very simple.
 Path | Description |
 --|--|
@@ -125,7 +125,7 @@ Path | Description |
 /app/config/ssl/generatedcerts/|Contains all of the upstream SSL certs used for MITM
 /app/config/ssl/servercerts/|Contains all of the SSL certs created during the build process
 
- ###  SSL MITM
+ ##  SSL MITM
 SSL MITM is enabled by default in this container.  
 
 ### Disabling SSL MITM
@@ -147,7 +147,7 @@ If the container already exists, then you can just make a few configuration chan
 
 Then, in the host, restart the container: `docker restart e2guardian`
 
- ###  Blanket Blocking
+ ##  Blanket Blocking
  By default, E2Guardian does no IP, URL, or domain blocking -- only content filtering.  If you want E2Guardian to block everything by default (blanket blocking) and only allow specific things, then you will need to make the following changes in `/app/configure/examplef1.story`:
 * Find the section that looks like this: 
    `# To create blanket block for http`
@@ -180,7 +180,7 @@ Then, in the host, restart the container: `docker restart e2guardian`
 
 Then, restart the container: `docker restart e2guardian`.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NTc4NTQyOTcsLTQzMjQ1MTQyNiwtMj
+eyJoaXN0b3J5IjpbLTEyMTgzNzQyOTQsLTQzMjQ1MTQyNiwtMj
 AxNzkzODAxNyw5MTEyODAwNDAsNjUxODA5ODksMTIzNTE1OTU1
 NiwtNTY4NjgwMzA4LDcyNDU1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
