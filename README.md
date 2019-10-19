@@ -128,7 +128,10 @@ Path | Description |
 /app/config/ssl/servercerts/|Contains all of the SSL certs created during the build process
 
  ###  SSL MITM
-SSL MITM is enabled by default in this container.  If you want to disable it, then you have two options: 
+SSL MITM is enabled by default in this container.  
+
+### Disabling SSL MITM
+If you want to disable it, then you have two options: 
 
 #### Option 1: 
 You can manually `build` the Docker image with the Dockerfile and include the `SSLMITM=off` argument in the command, like so:
@@ -147,10 +150,10 @@ If the container already exists, then you can just make a few configuration chan
 Then, in the host, restart the container: `docker restart e2guardian`
 
  ###  Blanket Blocking
- By default, E2Guardian does no IP, URL, or domain blocking -- only content filtering.
+ By default, E2Guardian does no IP, URL, or domain blocking -- only content filtering.  If you want E2Guardian to block everything by default
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE3Nzk5Mzk5NiwtMjAxNzkzODAxNyw5MT
+eyJoaXN0b3J5IjpbMTMyNjI3ODkwNCwtMjAxNzkzODAxNyw5MT
 EyODAwNDAsNjUxODA5ODksMTIzNTE1OTU1NiwtNTY4NjgwMzA4
 LDcyNDU1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
