@@ -131,10 +131,12 @@ SSL MITM is enabled by default in this container.  If you want to disable it, th
 
  1. You can build the Docker image with the Dockerfile and include the `SSLMITM=off` argument in the command, like so:
     
-    docker build -t e2g .
- 3. 
+        docker build -t e2g - .
+    
+ 2. sdf
+ 3.   
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1Njc3MDIxODgsMTIzNTE1OTU1NiwtNT
+eyJoaXN0b3J5IjpbLTE4OTEwODU1MjIsMTIzNTE1OTU1NiwtNT
 Y4NjgwMzA4LDcyNDU1NjgxMyw3MTgwNTc4NjBdfQ==
 -->
