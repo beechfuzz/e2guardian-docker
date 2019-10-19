@@ -137,16 +137,16 @@ You can manually `build` the Docker image with the Dockerfile and include the `S
 This will build the docker image with SSL MITM disabled.
 
 #### Option 2:
-If the container already exists, then you can just make a few configuration changes.  You can edit these by accessing the container directly (`docker exec -it e2guardian /bin/sh`) and using `vi`, or you can edit them directly on the host:
-* In `/app/e2guardian.conf`, find the line that says `enablessl = on` and change it to `enablessl = off`.
-* In `/app/e2guardianf1.conf`:
+If the container already exists, then you can just make a few configuration changes.  You can edit these by accessing the container directly (`docker exec -it e2guardian /bin/sh`) and using `vi`, or you can edit them directly on the host at the location that you set up the config volume for.
+* In `/app/config/e2guardian.conf`, find the line that says `enablessl = on` and change it to `enablessl = off`.
+* In `/app/config/e2guardianf1.conf`:
   * Find the line that says `sslmitm = on` and change it to `sslmitm = off`
   * Find the line that says `mitmcheckcert = on` and change it to `mitmcheckcert = off`
 
-Then, restart the container: `docker restart e2guardian`
+Then, in the host, restart the container: `docker restart e2guardian`
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTQ3OTcwMDY4NSw5MTEyODAwNDAsNjUxOD
-A5ODksMTIzNTE1OTU1NiwtNTY4NjgwMzA4LDcyNDU1NjgxMyw3
-MTgwNTc4NjBdfQ==
+eyJoaXN0b3J5IjpbLTIwMTc5MzgwMTcsOTExMjgwMDQwLDY1MT
+gwOTg5LDEyMzUxNTk1NTYsLTU2ODY4MDMwOCw3MjQ1NTY4MTMs
+NzE4MDU3ODYwXX0=
 -->
