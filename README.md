@@ -138,12 +138,13 @@ This will build the docker image with SSL MITM disabled.
 
 #### Option 2:
 If the container already exists, then you can just make a few configuration changes:
-- In `/app/e2guardian.conf`, find the line that says `enablessl = on` and change it to `enablessl = off`.
-- In `/app/e2guardianf1.conf`:
-   *
+* In `/app/e2guardian.conf`, find the line that says `enablessl = on` and change it to `enablessl = off`.
+* In `/app/e2guardianf1.conf`:
+  * Find the line that says `sslmitm = on` and change it to 
+  * **mitmcheckcert = on**
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyNDg3ODIwOTEsOTExMjgwMDQwLDY1MT
+eyJoaXN0b3J5IjpbLTIwMTc4MTM5NDEsOTExMjgwMDQwLDY1MT
 gwOTg5LDEyMzUxNTk1NTYsLTU2ODY4MDMwOCw3MjQ1NTY4MTMs
 NzE4MDU3ODYwXX0=
 -->
