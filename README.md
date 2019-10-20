@@ -163,11 +163,11 @@ Then, in the host, restart the container: `docker restart e2guardian`
   * And change it to this:
 
       <pre># To create blanket block for http
-      # uncomment next line and one condition line.
-      # uncomment next line and one condition line.
-      function(checkblanketblock)
-      if(true,,502) return setblock
-      #if(siteisip,,505) return setblock # = *ip ip blanket</pre>
+    # uncomment next line and one condition line.
+    # uncomment next line and one condition line.
+    function(checkblanketblock)
+    if(true,,502) return setblock
+    #if(siteisip,,505) return setblock # = *ip ip blanket</pre>
    
 * Then find the section that looks like this:
    `# To create blanket block for SSL`
