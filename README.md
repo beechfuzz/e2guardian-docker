@@ -162,7 +162,7 @@ Then, in the host, restart the container: `docker restart e2guardian`
    
   * And change it to this:
 
-    <pre># To create blanket block for http
+  <pre># To create blanket block for http
   # uncomment next line and one condition line.
   # uncomment next line and one condition line.
   function(checkblanketblock)
