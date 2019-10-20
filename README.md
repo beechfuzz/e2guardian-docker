@@ -154,19 +154,29 @@ Then, in the host, restart the container: `docker restart e2guardian`
 * Find the section that looks like this:
  
    `# To create blanket block for http`
+   
    `# uncomment next line and one condition line.`
+   
    `# uncomment next line and one condition line.`
+   
    `#function(checkblanketblock)`
+   
    `#if(true,,502) return setblock # = ** total blanket`
+   
    `#if(siteisip,,505) return setblock # = *ip ip blanket`
    
   * And change it to this:
 
    `# To create blanket block for http`
+   
    `\# uncomment next line and one condition line.`
+   
    `\# uncomment next line and one condition line.`
+   
    `function(checkblanketblock)`
+   
    `if(true,,502) return setblock`
+   
    `#if(siteisip,,505) return setblock # = *ip ip blanket`
    
 * Then find the section that looks like this:
