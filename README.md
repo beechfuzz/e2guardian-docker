@@ -170,17 +170,18 @@ Then, in the host, restart the container: `docker restart e2guardian`
     #if(siteisip,,505) return setblock # = *ip ip blanket</pre>
    
 * Then find the section that looks like this:
-   `# To create blanket block for SSL`
-   `# uncomment next line and one condition line.`
-   `#function(sslcheckblanketblock)`
-   `#if(true,,506) return setblock # = **s total blanket`
-   `#if(siteisip,,507) return setblock # = **ips ip blanket`
-     * And change it to this:
-      `# To create blanket block for SSL`
-      `# uncomment next line and one condition line.`
-      `function(sslcheckblanketblock)`
-      `if(true,,506) return setblock`
-      `#if(siteisip,,507) return setblock # = **ips ip blanket`
+    <pre># To create blanket block for SSL
+  # uncomment next line and one condition line.
+  #function(sslcheckblanketblock)
+  #if(true,,506) return setblock # = **s total blanket
+  #if(siteisip,,507) return setblock # = **ips ip blanket</pre>
+     
+  * And change it to this:
+      <pre># To create blanket block for SSL
+    # uncomment next line and one condition line.
+    function(sslcheckblanketblock)
+    if(true,,506) return setblock
+    #if(siteisip,,507) return setblock # = **ips ip blanket</pre>
 
 Then, restart the container: `docker restart e2guardian`.
 <!--stackedit_data:
