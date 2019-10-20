@@ -167,7 +167,7 @@ Then, in the host, restart the container: `docker restart e2guardian`
   # uncomment next line and one condition line.
   function(checkblanketblock)
   if(true,,502) return setblock
-  #if(siteisip,,505) return setblock # = *ip ip blanket
+  #if(siteisip,,505) return setblock # = *ip ip blanket</pre>
    
 * Then find the section that looks like this:
    `# To create blanket block for SSL`
