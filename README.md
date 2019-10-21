@@ -56,6 +56,8 @@ You can add the following arguments to the `docker run` command for better contr
 |`-e PUID=####`| Specify UID to use inside the container.  [More info](https://github.com/beechfuzz/e2guardian-docker/wiki/PUID-&-PGID) below.|
 |`-e PGID=####`| Specify GID to use inside the container.  [More info](https://github.com/beechfuzz/e2guardian-docker/wiki/PUID-&-PGID) below.|
 
+&nbsp;
+
 # Wiki
 
 Check the [wiki](https://github.com/beechfuzz/e2guardian-docker/wiki) for more detailed information on topics that include:
@@ -66,6 +68,7 @@ Check the [wiki](https://github.com/beechfuzz/e2guardian-docker/wiki) for more d
 * PUID & PGID
 * SSL MITM
 
+&nbsp;
 
 # Credits
 
