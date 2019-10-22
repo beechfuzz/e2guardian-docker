@@ -7,10 +7,10 @@ FROM lsiobase/alpine:amd64-3.8 as builder
 SHELL ["/bin/bash", "-c"]
 ARG SSLMITM=on
 ARG SSLSUBJ='/CN=e2guardian/O=e2guardian/C=US'
-ENV enable_sslmitm=yes
 
 # Install build packages
 RUN \
+	echo $SSLMITM > /tmp/SSLMITM && \
     echo '######## Update and install build packages ########' && \
         apk add --update --no-cache --virtual build-depends \
             autoconf automake cmake g++ build-base gcc gcc-doc \
@@ -28,7 +28,6 @@ RUN \
         sed -i '/^ipnobypass \\$/a domainsnobypass \\\nurlnobypass \\' configs/lists/Makefile.am && \
     \
     echo '######## Compile and install e2guardian ########' && \
-        if [[ $SSLMITM = "off" ]]; then enable_sslmitm="no"; fi && \
         ./autogen.sh && \
         ./configure \
             '--with-proxyuser=e2guardian' \
@@ -36,7 +35,7 @@ RUN \
             '--prefix=/app' \
             '--sysconfdir=${prefix}/config' \
             '--with-sysconfsubdir=' \
-            "--enable-sslmitm=$enable_sslmitm" \
+            "--enable-sslmitm=$([[ $SSLMITM = "on" ]] && echo "yes" || echo "no")" \
             '--enable-icap=yes' \
             '--enable-clamd=yes' \
             '--enable-commandline=yes' \
@@ -47,7 +46,6 @@ RUN \
         make -j 16 && make install
 
 # SSL MITM modifications
-WORKDIR /app/config/ssl/servercerts
 RUN \
 	mkdir -p \
 		/app/config/ssl/generatedcerts \
@@ -62,59 +60,79 @@ RUN \
     echo '######## Create enablesslmitm.sh script ########' && \
 		echo -e \
 			'#!/bin/sh \n'\
-			'ENABLE_SSLMITM=${1:-"on"} \n'\
+			'ENABLE_SSLMITM=on\n'\
+			'GENCERTS=\n'\
+			'BACKUP=\n'\
 			'SERVERCERTS="/app/config/ssl/servercerts" \n'\
-			'[ $ENABLE_SSLMITM = "on" ] && TOGGLE="off" || TOGGLE="on" \n'\
+			'\n'\
+            '\n'\
+			'while [ "$1" != "" ]; do \n'\
+				'\t case $1 in \n'\
+					'\t\t -d ) \n'\
+						'\t\t\t ENABLE_SSLMITM=no;;\n'\
+                    '\t\t -g ) \n'\
+                        '\t\t\t GENCERTS=1;;\n'\
+                    '\t\t -b ) \n'\
+                        '\t\t\t BACKUP=1;;\n'\
+				'\t esac \n'\
+				'\t shift \n'\
+			'done \n'\
+            '[[ $ENABLE_SSLMITM = "on" ]] && TOGGLE="off" || TOGGLE="on" \n'\
 			'\n'\
             '\n'\
 			'#Toggle SSL and modify paths of SSL certs/keys \n'\
             '#--------------------------------------------- \n'\
             'sed -i \\\n'\
-                '\t-e "s|enablessl = $TOGGLE|enablessl = $ENABLE_SSLMITM|g" \\\n'\
-                '\t-e "\|caprivatekeypath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/caprivatekey.pem'"'"'|" \\\n'\
-                '\t-e "\|cacertificatepath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/cacertificate.crt'"'"'|" \\\n'\
-                '\t-e "\|generatedcertpath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/generatedcerts'"'"'|" \\\n'\
-                '\t-e "\|certprivatekeypath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/certprivatekey.pem'"'"'|" \\\n'\
-                '\t/app/config/e2guardian.conf \n'\
+                '\t -e "s|enablessl = $TOGGLE|enablessl = $ENABLE_SSLMITM|g" \\\n'\
+                '\t -e "\|caprivatekeypath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/caprivatekey.pem'"'"'|" \\\n'\
+                '\t -e "\|cacertificatepath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/cacertificate.crt'"'"'|" \\\n'\
+                '\t -e "\|generatedcertpath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/generatedcerts'"'"'|" \\\n'\
+                '\t -e "\|certprivatekeypath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/certprivatekey.pem'"'"'|" \\\n'\
+                '\t /app/config/e2guardian.conf \n'\
 			'sed -i \\\n'\
-                '\t-e "/\(sslmitm\|mitmcheckcert\) = $TOGGLE$/s/$TOGGLE$/$ENABLE_SSLMITM/" \\\n'\
-                '\t/app/config/e2guardianf1.conf \n'\
+                '\t -e "/\(sslmitm\|mitmcheckcert\) = $TOGGLE$/s/$TOGGLE$/$ENABLE_SSLMITM/" \\\n'\
+                '\t /app/config/e2guardianf1.conf \n'\
             '\n'\
 			'\n'\
-			'#Generate required SSL certs and uncomment required lines\n'\
-            '#--------------------------- \n'\
+			'#Generate required SSL certs and uncomment required lines \n'\
+            '#-------------------------------------------------------- \n'\
 			'if [[ $ENABLE_SSLMITM = "on" ]]; then \n'\
-				'\t#Root CA Private Key \n'\
-				'\topenssl genrsa 4096 > $SERVERCERTS/caprivatekey.pem \n'\
-                '\t#Root CA Public Key (.crt) \n'\
-				'\topenssl req -new -x509 -subj "/CN=e2guardian/O=e2guardian/C=US" -days 3650 -sha256 -key $SERVERCERTS/caprivatekey.pem -out $SERVERCERTS/cacertificate.crt \n'\
-                '\t#Root CA Public Key (.der)\n'\
-				'\topenssl x509 -in ${SERVERCERTS}/cacertificate.crt -outform DER -out $SERVERCERTS/my_rootCA.der \n'\
-                '\t#Private Key for upstream SSL certs\n'\
-				'\topenssl genrsa 4096 > $SERVERCERTS/certprivatekey.pem \n'\
-				'\tsed -i \\\n'\
-                	'\t\t-e "\|^#*enablessl = on$|s|^#*||" \\\n'\
-					'\t\t-e "/^#*\(caprivatekeypath\|cacertificatepath\|generatedcertpath\|certprivatekeypath\) = '"'"'.*'"'"'$/s/^#*//" \\\n'\
-                	'\t\t/app/config/e2guardian.conf \n'\
+				'\t if [[ "$GENCERTS" ]]; then \n'\
+			    	'\t\t [[ "$BACKUP" ]] && tar czf $SERVERCERTS/backup/servercerts_$(date '+%Y-%m-%d_%H:%M:%S').tz $SERVERCERTS/*.* \n'\
+					'\t\t #Root CA Private Key \n'\
+					'\t\t openssl genrsa 4096 > $SERVERCERTS/caprivatekey.pem \n'\
+	                '\t\t #Root CA Public Key (.crt) \n'\
+					'\t\t openssl req -new -x509 -subj "/CN=e2guardian/O=e2guardian/C=US" -days 3650 -sha256 -key $SERVERCERTS/caprivatekey.pem -out $SERVERCERTS/cacertificate.crt \n'\
+	                '\t\t #Root CA Public Key (.der)\n'\
+					'\t\t openssl x509 -in ${SERVERCERTS}/cacertificate.crt -outform DER -out $SERVERCERTS/my_rootCA.der \n'\
+	                '\t\t #Private Key for upstream SSL certs\n'\
+					'\t\t openssl genrsa 4096 > $SERVERCERTS/certprivatekey.pem \n'\
+				'\t fi \n'\
+				'\t sed -i \\\n'\
+                	'\t\t -e "\|^#*enablessl = on$|s|^#*||" \\\n'\
+					'\t\t -e "/^#*\(caprivatekeypath\|cacertificatepath\|generatedcertpath\|certprivatekeypath\) = '"'"'.*'"'"'$/s/^#*//" \\\n'\
+                	'\t\t /app/config/e2guardian.conf \n'\
             	'\tsed -i \\\n'\
-                	'\t\t-e "/^#*\(sslmitm\|mitmcheckcert\) = on$/s/^#*//" \\\n'\
-                	'\t\t/app/config/e2guardianf1.conf \n'\
+                	'\t\t -e "/^#*\(sslmitm\|mitmcheckcert\) = on$/s/^#*//" \\\n'\
+                	'\t\t /app/config/e2guardianf1.conf \n'\
 			'fi \n'\
 			> /app/sbin/enablesslmitm.sh && \
-		chmod +750 /app/sbin/enablesslmitm.sh
+		chmod +750 /app/sbin/enablesslmitm.sh && \
+	\	
+	echo '######## Enable/Disable MITM ########' && \
+        args='-g' && \
+        [[ ! $(cat /tmp/SSLMITM) = "on" ]] && args='-d'; \
+        /app/sbin/enablesslmitm.sh $args
+
 
 # e2guardian modifications
-WORKDIR /app/config
 RUN \
-    echo '######## Enable/Disable MITM ########' && \
-		/app/sbin/enablesslmitm.sh "$SSLMITM" && \
-    \
     echo '######## Enable dockermode and update log location ########' && \
         sed -i \
             -e "s|^.\{0,1\}dockermode = off$|dockermode = on|g" \ 
             -e "\|^.\{0,1\}loglocation = '.*'$|s|'.*'|'/app/log/access.log'|" \
             -e "\|^.\{0,1\}loglocation = '.*'$|s|^#||" \
-            e2guardian.conf
+            /app/config/e2guardian.conf
 
 #Create entrypoint script
 RUN \
