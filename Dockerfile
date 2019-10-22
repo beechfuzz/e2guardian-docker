@@ -24,10 +24,8 @@ RUN \
     echo '######## Extract e2guardian source ########' && \
         tar xzf 5.3.3.tar.gz --strip 1 && \
     \
-    \
     echo '######## Fix bug in e2guardian Makefile ########' && \
         sed -i '/^ipnobypass \\$/a domainsnobypass \\\nurlnobypass \\' configs/lists/Makefile.am && \
-    \
     \
     echo '######## Compile and install e2guardian ########' && \
         if [[ $SSLMITM = "off" ]]; then enable_sslmitm="no"; fi && \
@@ -48,87 +46,78 @@ RUN \
             'CPPFLAGS=-mno-sse2 -g -O2' && \
         make -j 16 && make install
 
-# Create SSL certs for MITM
+# SSL MITM modifications
 WORKDIR /app/config/ssl/servercerts
 RUN \
-    echo '######## Create SSL certs for MITM ########' && \
-        echo -e '[ ca ] \n'\
+	mkdir -p \
+		/app/config/ssl/generatedcerts \
+		/app/config/ssl/servercerts && \
+	\
+    echo '######## Modify openssl.cnf ########' && \
+        echo -e \
+			'[ ca ] \n'\
             'basicConstraints=critical,CA:TRUE \n' \
             >> /etc/ssl/openssl.cnf && \
-        if [[ $SSLMITM = "on" ]]; then \
-            openssl genrsa 4096 > caprivatekey.pem && \                                                                     
-            openssl req -new -x509 -subj "$SSLSUBJ" -days 3650 -sha256 -key caprivatekey.pem -out cacertificate.crt && \
-            openssl x509 -in cacertificate.crt -outform DER -out my_rootCA.der && \
-            openssl genrsa 4096 > certprivatekey.pem; \
-        fi && \
-        mkdir ../generatedcerts
+	\
+    echo '######## Create enablesslmitm.sh script ########' && \
+		echo -e \
+			'#!/bin/sh \n'\
+			'ENABLE_SSLMITM=${1:-"on"} \n'\
+			'SERVERCERTS="/app/config/ssl/servercerts" \n'\
+			'[ $ENABLE_SSLMITM = "on" ] && TOGGLE="off" || TOGGLE="on" \n'\
+			'\n'\
+            '\n'\
+			'#Toggle SSL and modify paths of SSL certs/keys \n'\
+            '#--------------------------------------------- \n'\
+            'sed -i \\\n'\
+                '\t-e "s|enablessl = $TOGGLE|enablessl = $ENABLE_SSLMITM|g" \\\n'\
+                '\t-e "\|caprivatekeypath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/caprivatekey.pem'"'"'|" \\\n'\
+                '\t-e "\|cacertificatepath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/cacertificate.crt'"'"'|" \\\n'\
+                '\t-e "\|generatedcertpath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/generatedcerts'"'"'|" \\\n'\
+                '\t-e "\|certprivatekeypath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/certprivatekey.pem'"'"'|" \\\n'\
+                '\t/app/config/e2guardian.conf \n'\
+			'sed -i \\\n'\
+                '\t-e "/\(sslmitm\|mitmcheckcert\) = $TOGGLE$/s/$TOGGLE$/$ENABLE_SSLMITM/" \\\n'\
+                '\t/app/config/e2guardianf1.conf \n'\
+            '\n'\
+			'\n'\
+			'#Generate required SSL certs and uncomment required lines\n'\
+            '#--------------------------- \n'\
+			'if [[ $ENABLE_SSLMITM = "on" ]]; then \n'\
+				'\t#Root CA Private Key \n'\
+				'\topenssl genrsa 4096 > $SERVERCERTS/caprivatekey.pem \n'\
+                '\t#Root CA Public Key (.crt) \n'\
+				'\topenssl req -new -x509 -subj "/CN=e2guardian/O=e2guardian/C=US" -days 3650 -sha256 -key $SERVERCERTS/caprivatekey.pem -out $SERVERCERTS/cacertificate.crt \n'\
+                '\t#Root CA Public Key (.der)\n'\
+				'\topenssl x509 -in ${SERVERCERTS}/cacertificate.crt -outform DER -out $SERVERCERTS/my_rootCA.der \n'\
+                '\t#Private Key for upstream SSL certs\n'\
+				'\topenssl genrsa 4096 > $SERVERCERTS/certprivatekey.pem \n'\
+				'\tsed -i \\\n'\
+                	'\t\t-e "\|^#*enablessl = on$|s|^#*||" \\\n'\
+					'\t\t-e "/^#*\(caprivatekeypath\|cacertificatepath\|generatedcertpath\|certprivatekeypath\) = '"'"'.*'"'"'$/s/^#*//" \\\n'\
+                	'\t\t/app/config/e2guardian.conf \n'\
+            	'\tsed -i \\\n'\
+                	'\t\t-e "/^#*\(sslmitm\|mitmcheckcert\) = on$/s/^#*//" \\\n'\
+                	'\t\t/app/config/e2guardianf1.conf \n'\
+			'fi \n'\
+			> /app/sbin/enablesslmitm.sh && \
+		chmod +750 /app/sbin/enablesslmitm.sh
 
 # e2guardian modifications
 WORKDIR /app/config
 RUN \
-    echo '######## Enable MITM ########' && \
-        if [[ $SSLMITM = "on" ]]; then \
-            sed -i \
-                -e "s|^.\{0,1\}enablessl = off|enablessl = on|g" \
-                -e "\|^.\{0,1\}enablessl = on$|s|^#||" \
-                -e "\|^.\{0,1\}caprivatekeypath = '.*'$|s|'.*'|'/app/config/ssl/servercerts/caprivatekey.pem'|" \
-                -e "\|^.\{0,1\}cacertificatepath = '.*'$|s|'.*'|'/app/config/ssl/servercerts/cacertificate.crt'|" \
-                -e "\|^.\{0,1\}generatedcertpath = '.*'$|s|'.*'|'/app/config/ssl/generatedcerts'|" \
-                -e "\|^.\{0,1\}certprivatekeypath = '.*'$|s|'.*'|'/app/config/ssl/servercerts/certprivatekey.pem'|" \
-                -e "/^.\{0,1\}\(caprivatekeypath\|cacertificatepath\|generatedcertpath\|certprivatekeypath\) = '.*'$/s/^#//" \
-                e2guardian.conf && \
-            sed -i \
-                -e "/^.\{0,1\}\(sslmitm\|mitmcheckcert\) = off$/s/off$/on/" \
-                -e "/^.\{0,1\}\(sslmitm\|mitmcheckcert\) = on$/s/^#//" \
-                e2guardianf1.conf; \
-        fi && \
-    \
+    echo '######## Enable/Disable MITM ########' && \
+		/app/sbin/enablesslmitm.sh "$SSLMITM" && \
     \
     echo '######## Enable dockermode and update log location ########' && \
-        #find . -type f | xargs -I{} \
-        #   sed -i \
-        #       -e "s|^.\{0,1\}dockermode = off$|dockermode = on|g" \
-        #       -e "s|/app/config/|/config/|g" \
-        #       {} && \
         sed -i \
             -e "s|^.\{0,1\}dockermode = off$|dockermode = on|g" \ 
             -e "\|^.\{0,1\}loglocation = '.*'$|s|'.*'|'/app/log/access.log'|" \
             -e "\|^.\{0,1\}loglocation = '.*'$|s|^#||" \
             e2guardian.conf
 
-RUN tar czf /app/config.gz /app/config
-
-###
-### RUNTIME STAGE
-### -------------
-###
-
-FROM alpine:3.8
-
-ENV PUID="1000" \
-    PGID="1000"
-
-#VOLUME /config
-VOLUME /app/config /app/log
-
-COPY --from=builder /app /app
-#COPY --from=builder /tmp/app.tar.gz /tmp/app.tar.gz
-
+#Create entrypoint script
 RUN \
-    echo '######## Install required packages ########' && \
-        apk add --update --no-cache libgcc libstdc++ pcre openssl shadow tini && \
-    \
-    \
-    echo '######## Create e2guardian account ########' && \
-        groupmod -g 1000 users && \
-        useradd -u 1000 -U -d /config -s /bin/false e2guardian && \
-        usermod -G users e2guardian && \
-    \
-    \
-    #echo '######## Extract /app directory ########' && \
-    #   tar xzf /tmp/app.tar.gz -C / && \
-    \
-    \
     echo '######## Create entrypoint script ########' && \
         echo -e '#!/bin/sh \n'\
             'PUID=${PUID:-1000} \n'\
@@ -157,13 +146,37 @@ RUN \
             '#Start e2guardian \n'\
             '#-----------------\n'\
             '/app/sbin/e2guardian -N -c /app/config/e2guardian.conf '\
-            > /entrypoint.sh && \
-        chmod +x /entrypoint.sh && \
+            > /app/sbin/entrypoint.sh && \
+        chmod +x /app/sbin/entrypoint.sh 
+
+RUN tar czf /app/config.gz /app/config
+
+###
+### RUNTIME STAGE
+### -------------
+###
+
+FROM alpine:3.8
+
+ENV PUID="1000" \
+    PGID="1000"
+
+VOLUME /app/config /app/log
+
+COPY --from=builder /app /app
+
+RUN \
+    echo '######## Install required packages ########' && \
+        apk add --update --no-cache libgcc libstdc++ pcre openssl shadow tini && \
     \
+    echo '######## Create e2guardian account ########' && \
+        groupmod -g 1000 users && \
+        useradd -u 1000 -U -d /config -s /bin/false e2guardian && \
+        usermod -G users e2guardian && \
     \
     echo '######## Clean-up ########' && \
         rm -rf /tmp/* /var/cache/apk/*
 
 EXPOSE 8080
 
-ENTRYPOINT ["/sbin/tini","-vv","-g","--","/entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini","-vv","-g","--","/app/sbin/entrypoint.sh"]
