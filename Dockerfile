@@ -62,7 +62,7 @@ RUN \
             '#!/bin/sh \n'\
             'ENABLE_SSLMITM=on\n'\
             'SERVERCERTS="/app/config/ssl/servercerts" \n'\
-			'GENERATEDCERTS="/app/config/ssl/generatedcerts" \n'\
+            'GENERATEDCERTS="/app/config/ssl/generatedcerts" \n'\
             '\n'\
             '\n'\
             'usage() {\n'\
@@ -87,20 +87,20 @@ RUN \
             'backup() {\n'\
                 '\t local check="$SERVERCERTS/*.*" \n'\
                 '\t local BDIR="/app/config/ssl/backup" \n'\
-				'\t local BNAME="certs_$(date '"'"'+%Y-%m-%d_%H:%M:%S'"'"').tz" \n'\
+                '\t local BNAME="certs_$(date '"'"'+%Y-%m-%d_%H:%M:%S'"'"').tz" \n'\
                 '\t local BFILE="$BDIR/$BNAME" \n'\
                 '\t if $(exists $check;exit $?); then \n'\
-	                '\t\t [[ ! -d "$BDIR" ]] && (mkdir -p "$BDIR" && chown e2guardian:e2guardian "$BDIR") \n'\
-                	'\t\t tar czf "$BFILE" "$SERVERCERTS" "$GENERATEDCERTS" && \\\n'\
-	                	'\t\t\t echo Successfully backed up pre-existing certs to "$BFILE". \n'\
+                    '\t\t [[ ! -d "$BDIR" ]] && (mkdir -p "$BDIR" && chown e2guardian:e2guardian "$BDIR") \n'\
+                    '\t\t tar czf "$BFILE" "$SERVERCERTS" "$GENERATEDCERTS" && \\\n'\
+                        '\t\t\t echo Successfully backed up pre-existing certs to "$BFILE". \n'\
                 '\t else \n'\
-					'\t\t echo No certs currently exist to backup. \n'\
+                    '\t\t echo No certs currently exist to backup. \n'\
                 '\t fi \n'\
             '}\n'\
             '\n'\
             'deletecerts() {\n'\
                 '\t local check="$SERVERCERTS/*.*" \n'\
-				'\t $(exists $check;exit $?) && (rm -f $check && echo Successfully deleted certs.) || echo No certs to delete. \n'\
+                '\t $(exists $check;exit $?) && (rm -f $check && echo Successfully deleted certs.) || echo No certs to delete. \n'\
             '}\n'\
             '\n'\
             '\n'\
@@ -153,7 +153,7 @@ RUN \
                     '\t\t openssl x509 -in ${SERVERCERTS}/cacertificate.crt -outform DER -out $SERVERCERTS/my_rootCA.der \n'\
                     '\t\t #Private Key for upstream SSL certs\n'\
                     '\t\t openssl genrsa 4096 > $SERVERCERTS/certprivatekey.pem \n'\
-					'\t\t echo -e "Created the following certs: \\n$(md5sum $SERVERCERTS/*.*)" \n'\
+                    '\t\t echo -e "Created the following certs: \\n$(md5sum $SERVERCERTS/*.*)" \n'\
                 '\t fi \n'\
                 '\t sed -i \\\n'\
                     '\t\t -e "\|^#*enablessl = on$|s|^#*||" \\\n'\
@@ -164,7 +164,7 @@ RUN \
                     '\t\t /app/config/e2guardianf1.conf \n'\
             'else \n'\
                 '\t if [[ "$DELCERTS" ]]; then \n'\
-					'\t\t [[ "$BACKUP" ]] && backup \n'\
+                    '\t\t [[ "$BACKUP" ]] && backup \n'\
                     '\t\t deletecerts \n'\
                 '\t fi \n'\
             'fi \n'\
