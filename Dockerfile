@@ -61,19 +61,65 @@ RUN \
         echo -e \
             '#!/bin/sh \n'\
             'ENABLE_SSLMITM=on\n'\
-            'GENCERTS=\n'\
-            'BACKUP=\n'\
             'SERVERCERTS="/app/config/ssl/servercerts" \n'\
+			'GENERATEDCERTS="/app/config/ssl/generatedcerts" \n'\
+            '\n'\
+            '\n'\
+            'usage() {\n'\
+                '\t echo -e "Usage: enablesslmitm.sh \\n"\\\n'\
+                '\t         "       enablesslmitm.sh -g [-b] \\n"\\\n'\
+                '\t         "       enablesslmitm.sh -d \\n"\\\n'\
+                '\t         "       enablesslmitm.sh -D [-b]  \\n"\\\n'\
+                '\t         "       enablesslmitm.sh -h \\n"\\\n'\
+                '\t "\\n"\\\n'\
+                '\t " -b, --backup           Backup any certs that are present before overwriting/deleting them\\n"\\\n'\
+                '\t " -d, --disable          Disable SSL MITM\\n"\\\n'\
+                '\t " -D, --disable-delete   Disable SSL MITM and delete any certs that are present\\n"\\\n'\
+                '\t " -g, --generate         Generate new SSL certs \(overwrites previous ones\)\\n"\\\n'\
+                '\t " -h, --help             Display this help menu\\n"\n'\
+            '}\n'\
+            '\n'\
+            'exists() {\n'\
+                '\t local f="$1" \n'\
+                '\t return $(ls -A $f &>/dev/null;echo $?) \n'\
+            '}\n'\
+            '\n'\
+            'backup() {\n'\
+                '\t local check="$SERVERCERTS/*.*" \n'\
+                '\t local BDIR="/app/config/ssl/backup" \n'\
+				'\t local BNAME="certs_$(date '"'"'+%Y-%m-%d_%H:%M:%S'"'"').tz" \n'\
+                '\t local BFILE="$BDIR/$BNAME" \n'\
+                '\t if $(exists $check;exit $?); then \n'\
+	                '\t\t [[ ! -d "$BDIR" ]] && (mkdir -p "$BDIR" && chown e2guardian:e2guardian "$BDIR") \n'\
+                	'\t\t tar czf "$BFILE" "$SERVERCERTS" "$GENERATEDCERTS" && \\\n'\
+	                	'\t\t\t echo Successfully backed up pre-existing certs to "$BFILE". \n'\
+                '\t else \n'\
+					'\t\t echo No certs currently exist to backup. \n'\
+                '\t fi \n'\
+            '}\n'\
+            '\n'\
+            'deletecerts() {\n'\
+                '\t local check="$SERVERCERTS/*.*" \n'\
+				'\t $(exists $check;exit $?) && (rm -f $check && echo Successfully deleted certs.) || echo No certs to delete. \n'\
+            '}\n'\
             '\n'\
             '\n'\
             'while [ "$1" != "" ]; do \n'\
                 '\t case $1 in \n'\
-                    '\t\t -d ) \n'\
-                        '\t\t\t ENABLE_SSLMITM=no;;\n'\
-                    '\t\t -g ) \n'\
+                    '\t\t -d | --disable ) \n'\
+                        '\t\t\t ENABLE_SSLMITM=off;;\n'\
+                    '\t\t -D | --disable-delete ) \n'\
+                        '\t\t\t ENABLE_SSLMITM=off\n'\
+                        '\t\t\t DELCERTS=1;;\n'\
+                    '\t\t -g | --generate ) \n'\
                         '\t\t\t GENCERTS=1;;\n'\
-                    '\t\t -b ) \n'\
+                    '\t\t -b | --backup ) \n'\
                         '\t\t\t BACKUP=1;;\n'\
+                    '\t\t -h | --help ) \n'\
+                         '\t\t\t usage;;\n'\
+                    '\t\t * ) \n'\
+                        '\t\t\t usage\n'\
+                        '\t\t\t exit 1;;\n'\
                 '\t esac \n'\
                 '\t shift \n'\
             'done \n'\
@@ -98,7 +144,7 @@ RUN \
             '#-------------------------------------------------------- \n'\
             'if [[ $ENABLE_SSLMITM = "on" ]]; then \n'\
                 '\t if [[ "$GENCERTS" ]]; then \n'\
-                    '\t\t [[ "$BACKUP" ]] && tar czf $SERVERCERTS/backup/servercerts_$(date '+%Y-%m-%d_%H:%M:%S').tz $SERVERCERTS/*.* \n'\
+                    '\t\t [[ "$BACKUP" ]] && backup \n'\
                     '\t\t #Root CA Private Key \n'\
                     '\t\t openssl genrsa 4096 > $SERVERCERTS/caprivatekey.pem \n'\
                     '\t\t #Root CA Public Key (.crt) \n'\
@@ -107,6 +153,7 @@ RUN \
                     '\t\t openssl x509 -in ${SERVERCERTS}/cacertificate.crt -outform DER -out $SERVERCERTS/my_rootCA.der \n'\
                     '\t\t #Private Key for upstream SSL certs\n'\
                     '\t\t openssl genrsa 4096 > $SERVERCERTS/certprivatekey.pem \n'\
+					'\t\t echo -e "Created the following certs: \\n$(md5sum $SERVERCERTS/*.*)" \n'\
                 '\t fi \n'\
                 '\t sed -i \\\n'\
                     '\t\t -e "\|^#*enablessl = on$|s|^#*||" \\\n'\
@@ -115,12 +162,17 @@ RUN \
                 '\tsed -i \\\n'\
                     '\t\t -e "/^#*\(sslmitm\|mitmcheckcert\) = on$/s/^#*//" \\\n'\
                     '\t\t /app/config/e2guardianf1.conf \n'\
+            'else \n'\
+                '\t if [[ "$DELCERTS" ]]; then \n'\
+					'\t\t [[ "$BACKUP" ]] && backup \n'\
+                    '\t\t deletecerts \n'\
+                '\t fi \n'\
             'fi \n'\
             > /app/sbin/enablesslmitm.sh && \
         chmod +750 /app/sbin/enablesslmitm.sh && \
-    \    
+    \
     echo '######## Enable/Disable MITM ########' && \
-        args='-g' && \
+        args='-g -b' && \
         [[ ! $(cat /tmp/SSLMITM) = "on" ]] && args='-d'; \
         /app/sbin/enablesslmitm.sh $args
 
@@ -129,7 +181,7 @@ RUN \
 RUN \
     echo '######## Enable dockermode and update log location ########' && \
         sed -i \
-            -e "s|^.\{0,1\}dockermode = off$|dockermode = on|g" \ 
+            -e "s|^.\{0,1\}dockermode = off$|dockermode = on|g" \
             -e "\|^.\{0,1\}loglocation = '.*'$|s|'.*'|'/app/log/access.log'|" \
             -e "\|^.\{0,1\}loglocation = '.*'$|s|^#||" \
             /app/config/e2guardian.conf
