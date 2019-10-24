@@ -7,10 +7,17 @@ FROM lsiobase/alpine:amd64-3.8 as builder
 SHELL ["/bin/bash", "-c"]
 ARG SSLMITM=on
 ARG SSLSUBJ='/CN=e2guardian/O=e2guardian/C=US'
+ARG FILEBROWSER=no
+
+# Store ARGs
+RUN \
+    mkdir -p /tmp/args && \
+	echo $SSLMITM > /tmp/args/SSLMITM && \
+	echo $SSLSUBJ > /tmp/args/SSLSUBJ && \
+	echo $FILEBROWSER > /tmp/args/FILEBROWSER
 
 # Install build packages
 RUN \
-    echo $SSLMITM > /tmp/SSLMITM && \
     echo '######## Update and install build packages ########' && \
         apk add --update --no-cache --virtual build-depends \
             autoconf automake cmake g++ build-base gcc gcc-doc \
@@ -30,26 +37,27 @@ RUN \
     echo '######## Compile and install e2guardian ########' && \
         ./autogen.sh && \
         ./configure \
-            '--with-proxyuser=e2guardian' \
-            '--with-proxygroup=e2guardian' \
-            '--prefix=/app' \
-            '--sysconfdir=${prefix}/config' \
-            '--with-sysconfsubdir=' \
-            "--enable-sslmitm=$([[ $SSLMITM = "on" ]] && echo "yes" || echo "no")" \
-            '--enable-icap=yes' \
-            '--enable-clamd=yes' \
-            '--enable-commandline=yes' \
-            '--enable-email=yes' \
-            '--enable-ntlm=yes' \
-            '--enable-pcre=yes' \
+            --with-proxyuser="e2guardian" \
+            --with-proxygroup="e2guardian" \
+            --prefix="/app/e2guardian" \
+            --sysconfdir='${prefix}/config' \
+			--sbindir="/app/sbin" \
+            --with-sysconfsubdir= \
+            --enable-sslmitm="$([[ $(cat /tmp/args/SSLMITM) = 'on' ]] && echo yes || echo no)" \
+            --enable-icap="yes" \
+            --enable-clamd="yes" \
+            --enable-commandline="yes" \
+            --enable-email="yes" \
+            --enable-ntlm="yes" \
+            -enable-pcre="yes" \
             'CPPFLAGS=-mno-sse2 -g -O2' && \
-        make && make install
+        make -j 16 && make install
 
 # SSL MITM modifications
 RUN \
     mkdir -p \
-        /app/config/ssl/generatedcerts \
-        /app/config/ssl/servercerts && \
+        /app/e2guardian/config/ssl/generatedcerts \
+        /app/e2guardian/config/ssl/servercerts && \
     \
     echo '######## Modify openssl.cnf ########' && \
         echo -e \
@@ -61,8 +69,8 @@ RUN \
         echo -e \
             '#!/bin/sh \n'\
             'ENABLE_SSLMITM=on\n'\
-            'SERVERCERTS="/app/config/ssl/servercerts" \n'\
-            'GENERATEDCERTS="/app/config/ssl/generatedcerts" \n'\
+            'SERVERCERTS="/app/e2guardian/config/ssl/servercerts" \n'\
+            'GENERATEDCERTS="/app/e2guardian/config/ssl/generatedcerts" \n'\
             '\n'\
             '\n'\
             'usage() {\n'\
@@ -86,7 +94,7 @@ RUN \
             '\n'\
             'backup() {\n'\
                 '\t local check="$SERVERCERTS/*.*" \n'\
-                '\t local BDIR="/app/config/ssl/backup" \n'\
+                '\t local BDIR="/app/e2guardian/config/ssl/backup" \n'\
                 '\t local BNAME="certs_$(date '"'"'+%Y-%m-%d_%H:%M:%S'"'"').tz" \n'\
                 '\t local BFILE="$BDIR/$BNAME" \n'\
                 '\t if $(exists $check;exit $?); then \n'\
@@ -130,14 +138,14 @@ RUN \
             '#--------------------------------------------- \n'\
             'sed -i \\\n'\
                 '\t -e "s|enablessl = $TOGGLE|enablessl = $ENABLE_SSLMITM|g" \\\n'\
-                '\t -e "\|caprivatekeypath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/caprivatekey.pem'"'"'|" \\\n'\
-                '\t -e "\|cacertificatepath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/cacertificate.crt'"'"'|" \\\n'\
-                '\t -e "\|generatedcertpath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/generatedcerts'"'"'|" \\\n'\
-                '\t -e "\|certprivatekeypath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/config/ssl/servercerts/certprivatekey.pem'"'"'|" \\\n'\
-                '\t /app/config/e2guardian.conf \n'\
+                '\t -e "\|caprivatekeypath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/e2guardian/config/ssl/servercerts/caprivatekey.pem'"'"'|" \\\n'\
+                '\t -e "\|cacertificatepath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/e2guardian/config/ssl/servercerts/cacertificate.crt'"'"'|" \\\n'\
+                '\t -e "\|generatedcertpath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/e2guardian/config/ssl/generatedcerts'"'"'|" \\\n'\
+                '\t -e "\|certprivatekeypath = '"'"'.*'"'"'$|s|'"'"'.*'"'"'|'"'"'/app/e2guardian/config/ssl/servercerts/certprivatekey.pem'"'"'|" \\\n'\
+                '\t /app/e2guardian/config/e2guardian.conf \n'\
             'sed -i \\\n'\
                 '\t -e "/\(sslmitm\|mitmcheckcert\) = $TOGGLE$/s/$TOGGLE$/$ENABLE_SSLMITM/" \\\n'\
-                '\t /app/config/e2guardianf1.conf \n'\
+                '\t /app/e2guardian/config/e2guardianf1.conf \n'\
             '\n'\
             '\n'\
             '#Generate required SSL certs and uncomment required lines \n'\
@@ -158,10 +166,10 @@ RUN \
                 '\t sed -i \\\n'\
                     '\t\t -e "\|^#*enablessl = on$|s|^#*||" \\\n'\
                     '\t\t -e "/^#*\(caprivatekeypath\|cacertificatepath\|generatedcertpath\|certprivatekeypath\) = '"'"'.*'"'"'$/s/^#*//" \\\n'\
-                    '\t\t /app/config/e2guardian.conf \n'\
+                    '\t\t /app/e2guardian/config/e2guardian.conf \n'\
                 '\tsed -i \\\n'\
                     '\t\t -e "/^#*\(sslmitm\|mitmcheckcert\) = on$/s/^#*//" \\\n'\
-                    '\t\t /app/config/e2guardianf1.conf \n'\
+                    '\t\t /app/e2guardian/config/e2guardianf1.conf \n'\
             'else \n'\
                 '\t if [[ "$DELCERTS" ]]; then \n'\
                     '\t\t [[ "$BACKUP" ]] && backup \n'\
@@ -173,7 +181,7 @@ RUN \
     \
     echo '######## Enable/Disable MITM ########' && \
         args='-g -b' && \
-        [[ ! $(cat /tmp/SSLMITM) = "on" ]] && args='-d'; \
+        [[ ! $(cat /tmp/args/SSLMITM) = "on" ]] && args='-d'; \
         /app/sbin/enablesslmitm.sh $args
 
 
@@ -182,9 +190,29 @@ RUN \
     echo '######## Enable dockermode and update log location ########' && \
         sed -i \
             -e "s|^.\{0,1\}dockermode = off$|dockermode = on|g" \
-            -e "\|^.\{0,1\}loglocation = '.*'$|s|'.*'|'/app/log/access.log'|" \
+            -e "\|^.\{0,1\}loglocation = '.*'$|s|'.*'|'/app/e2guardian/log/access.log'|" \
             -e "\|^.\{0,1\}loglocation = '.*'$|s|^#||" \
-            /app/config/e2guardian.conf
+            /app/e2guardian/config/e2guardian.conf
+
+# Filebrowser
+RUN \
+    echo '######## Install Filebrowser if specified ########' && \
+		if [[ $(cat /tmp/args/FILEBROWSER) = "yes" ]]; then \
+			curl -fsSL https://filebrowser.xyz/get.sh | bash && \
+			mv $(which filebrowser) /app/sbin && \
+			chmod +x /app/sbin/filebrowser && \
+			mkdir -p /app/filebrowser/config && \
+        	echo -e \
+				'{ \n'\
+					'      "port": 80, \n'\
+					'   "baseURL": "", \n'\
+           	     	'   "address": "", \n'\
+           	     	'       "log": "/app/filebrowser/log/filebrowser.log", \n'\
+           	     	'  "database": "/app/filebrowser/config/filebrowser/database.db", \n'\
+                	'      "root": "/app/e2guardian/config" \n'\
+            	'}'\
+				> /app/filebrowser/config/.filebrowser.json; \
+        fi
 
 #Create entrypoint script
 RUN \
@@ -200,26 +228,30 @@ RUN \
             '\n'\
             '#Verify important files in Docker volumes exist \n'\
             '#---------------------------------------------- \n'\
-            '[[ -z "$(ls -A /app/config 2>/dev/null)" ]] && tar xzf /app/config.gz -C /app --strip 1 \n'\
-            '[[ ! -f /app/log/access.log ]] && touch /app/log/access.log \n'\
+            '[[ -z "$(ls -A /app/e2guardian/config 2>/dev/null)" ]] && tar xzf /app/e2guardian/config.gz -C /app --strip 1 \n'\
+            '[[ ! -f /app/e2guardian/log/access.log ]] && touch /app/e2guardian/log/access.log \n'\
             '\n'\
             '#Remove any existing .pid file that could prevent e2guardian from starting \n'\
             '#------------------------------------------------------------------------- \n'\
-            'rm -rf /app/var/run/e2guardian.pid \n'\
+            'rm -rf /app/e2guardian/var/run/e2guardian.pid \n'\
             '\n'\
             '#Ensure correct ownership and permissions \n'\
             '#---------------------------------------- \n'\
             'chown -R e2guardian:e2guardian /app \n'\
-            'chmod -R 700 /app/config/ssl/servercerts/*.pem /app/config/ssl/generatedcerts \n'\
-            'chmod 755 /app/config/ssl/servercerts /app/config/ssl/servercerts/*.crt /app/config/ssl/servercerts/*.der \n'\
+            'chmod -R 700 /app/e2guardian/config/ssl/servercerts/*.pem /app/e2guardian/config/ssl/generatedcerts \n'\
+            'chmod 755 /app/e2guardian/config/ssl/servercerts /app/e2guardian/config/ssl/servercerts/*.crt /app/e2guardian/config/ssl/servercerts/*.der \n'\
             '\n'\
-            '#Start e2guardian \n'\
+            '#Start Filebrowser \n'\
             '#-----------------\n'\
-            '/app/sbin/e2guardian -N -c /app/config/e2guardian.conf '\
+            '[[ -x /app/sbin/filebrowser ]] && /app/sbin/filebrowser -c /app/filebrowser/config/.filebrowser.json \n'\
+            '\n'\
+			'#Start e2guardian \n'\
+            '#-----------------\n'\
+            '/app/sbin/e2guardian -N -c /app/e2guardian/config/e2guardian.conf '\
             > /app/sbin/entrypoint.sh && \
         chmod +x /app/sbin/entrypoint.sh 
 
-RUN tar czf /app/config.gz /app/config
+RUN tar czf /app/e2guardian/config.gz /app/e2guardian/config
 
 ###
 ### RUNTIME STAGE
@@ -232,7 +264,7 @@ ENV PUID="1000" \
     PGID="1000"
 
 
-VOLUME /app/config /app/log
+VOLUME /app/e2guardian/config /app/e2guardian/log
 
 COPY --from=builder /app /app
 
