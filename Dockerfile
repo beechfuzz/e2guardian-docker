@@ -231,13 +231,14 @@ FROM alpine:3.8
 ENV PUID="1000" \
     PGID="1000"
 
+
 VOLUME /app/config /app/log
 
 COPY --from=builder /app /app
 
 RUN \
     echo '######## Install required packages ########' && \
-        apk add --update --no-cache libgcc libstdc++ pcre openssl shadow tini && \
+        apk add --update --no-cache libgcc libstdc++ pcre openssl shadow tini tzdata && \
     \
     echo '######## Create e2guardian account ########' && \
         groupmod -g 1000 users && \
