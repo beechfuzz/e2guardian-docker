@@ -208,7 +208,7 @@ RUN \
                     '   "baseURL": "", \n'\
                     '   "address": "", \n'\
                     '       "log": "/app/filebrowser/log/filebrowser.log", \n'\
-                    '  "database": "/app/filebrowser/config/filebrowser/database.db", \n'\
+                    '  "database": "/app/filebrowser/config/database.db", \n'\
                     '      "root": "/app/e2guardian/config" \n'\
                 '}'\
                 > /app/filebrowser/config/.filebrowser.json; \
