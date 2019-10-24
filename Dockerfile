@@ -12,9 +12,9 @@ ARG FILEBROWSER=no
 # Store ARGs
 RUN \
     mkdir -p /tmp/args && \
-	echo $SSLMITM > /tmp/args/SSLMITM && \
-	echo $SSLSUBJ > /tmp/args/SSLSUBJ && \
-	echo $FILEBROWSER > /tmp/args/FILEBROWSER
+    echo $SSLMITM > /tmp/args/SSLMITM && \
+    echo $SSLSUBJ > /tmp/args/SSLSUBJ && \
+    echo $FILEBROWSER > /tmp/args/FILEBROWSER
 
 # Install build packages
 RUN \
@@ -41,7 +41,7 @@ RUN \
             --with-proxygroup="e2guardian" \
             --prefix="/app/e2guardian" \
             --sysconfdir='${prefix}/config' \
-			--sbindir="/app/sbin" \
+            --sbindir="/app/sbin" \
             --with-sysconfsubdir= \
             --enable-sslmitm="$([[ $(cat /tmp/args/SSLMITM) = 'on' ]] && echo yes || echo no)" \
             --enable-icap="yes" \
@@ -197,21 +197,21 @@ RUN \
 # Filebrowser
 RUN \
     echo '######## Install Filebrowser if specified ########' && \
-		if [[ $(cat /tmp/args/FILEBROWSER) = "yes" ]]; then \
-			curl -fsSL https://filebrowser.xyz/get.sh | bash && \
-			mv $(which filebrowser) /app/sbin && \
-			chmod +x /app/sbin/filebrowser && \
-			mkdir -p /app/filebrowser/config && \
-        	echo -e \
-				'{ \n'\
-					'      "port": 80, \n'\
-					'   "baseURL": "", \n'\
-           	     	'   "address": "", \n'\
-           	     	'       "log": "/app/filebrowser/log/filebrowser.log", \n'\
-           	     	'  "database": "/app/filebrowser/config/filebrowser/database.db", \n'\
-                	'      "root": "/app/e2guardian/config" \n'\
-            	'}'\
-				> /app/filebrowser/config/.filebrowser.json; \
+        if [[ $(cat /tmp/args/FILEBROWSER) = "yes" ]]; then \
+            curl -fsSL https://filebrowser.xyz/get.sh | bash && \
+            mv $(which filebrowser) /app/sbin && \
+            chmod +x /app/sbin/filebrowser && \
+            mkdir -p /app/filebrowser/config && \
+            echo -e \
+                '{ \n'\
+                    '      "port": 80, \n'\
+                    '   "baseURL": "", \n'\
+                    '   "address": "", \n'\
+                    '       "log": "/app/filebrowser/log/filebrowser.log", \n'\
+                    '  "database": "/app/filebrowser/config/filebrowser/database.db", \n'\
+                    '      "root": "/app/e2guardian/config" \n'\
+                '}'\
+                > /app/filebrowser/config/.filebrowser.json; \
         fi
 
 #Create entrypoint script
@@ -245,7 +245,7 @@ RUN \
             '#-----------------\n'\
             '[[ -x /app/sbin/filebrowser ]] && /app/sbin/filebrowser -c /app/filebrowser/config/.filebrowser.json \n'\
             '\n'\
-			'#Start e2guardian \n'\
+            '#Start e2guardian \n'\
             '#-----------------\n'\
             '/app/sbin/e2guardian -N -c /app/e2guardian/config/e2guardian.conf '\
             > /app/sbin/entrypoint.sh && \
