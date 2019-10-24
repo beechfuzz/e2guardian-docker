@@ -49,14 +49,17 @@ You can read more about the `-v` parameter, and the `PUID` and `PGID` variables 
 ### Optional Arguments
 You can add the following arguments to the `docker run` command for better control over the container:
 
-|Argument |Meaning |
-|-|-|
-|`-v /path/to/config:/app/config`|Make config files and lists persistent|
-|`-v /path/to/log:/app/log`| Make logs persistent|
-|`-e PUID=####`| Specify UID to use inside the container.  [More info](https://github.com/beechfuzz/e2guardian-docker/wiki/PUID-&-PGID) below.|
-|`-e PGID=####`| Specify GID to use inside the container.  [More info](https://github.com/beechfuzz/e2guardian-docker/wiki/PUID-&-PGID) below.|
+Argument |Meaning 
+-|-
+`-v /path/to/config:/app/config`|Make config files and lists persistent
+`-v /path/to/log:/app/log`| Make logs persistent
+`-e PUID=####`| Specify UID to use inside the container.  [More info](https://github.com/beechfuzz/e2guardian-docker/wiki/PUID-&-PGID).
+`-e PGID=####`| Specify GID to use inside the container.  [More info](https://github.com/beechfuzz/e2guardian-docker/wiki/PUID-&-PGID).
+`-e TZ="####'`| Specify timezone for container.  [More info](https://github.com/beechfuzz/e2guardian-docker/wiki/Timezone).
 
-You can read more about the `-v` parameter at the [Persistence and Volumes](https://github.com/beechfuzz/e2guardian-docker/wiki/Persistence-and-Volumes) wiki page, and the `-e` parameter at the [PUID & PGID](https://github.com/beechfuzz/e2guardian-docker/wiki/PUID-&-PGID) wiki page.
+
+You can read more about the `-v` parameter on the [Persistence and Volumes](https://github.com/beechfuzz/e2guardian-docker/wiki/Persistence-and-Volumes) wiki page, and the `-e PUID`/`-e PGID` parameters on the [PUID & PGID](https://github.com/beechfuzz/e2guardian-docker/wiki/PUID-&-PGID) wiki page.
+
 
 &nbsp;
 
