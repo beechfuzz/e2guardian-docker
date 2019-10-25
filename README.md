@@ -24,6 +24,9 @@ Because running services in containerized environments makes installation, manag
 
 
 # Quick Start
+
+For more thorough details, see [Installing and Running](https://github.com/beechfuzz/e2guardian-docker/wiki/Installing-and-Running).
+
 Installing and running is quite simple.  Assuming you already have [Docker installed](https://docs.docker.com/v17.09/engine/installation/), just run the following 'bare-bones' Docker command to get it up and running:
 
     docker run -d --name="e2guardian" \
