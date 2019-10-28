@@ -39,26 +39,15 @@ This is enough to get it up and running immediately *without any persistence*.
 If you want persistent data, then run the following command instead:
 
     docker run -d --name="e2guardian" \
-        -v /path/to/config:/app/config \
-        -v /path/to/log:/app/log \
+        -v /path/to/config:/app/e2guardian/config \
+        -v /path/to/log:/app/e2guardian/log \
         -p 8080:8080 \
         -e PUID=#### \
         -e PGID=#### \
         --restart=unless-stopped \
         beechfuzz/e2guardian
         
-You can read more about the `-v` parameter, and the `PUID` and `PGID` variables in the [Optional Arguments](#optional-arguments) section below.
-
-### Optional Arguments
-You can add the following arguments to the `docker run` command for better control over the container:
-
-Argument |Meaning 
--|-
-`-v /path/to/config:/app/config`|Make config files and lists persistent. [More Info](https://github.com/beechfuzz/e2guardian-docker/wiki/Persistence-and-Volumes)
-`-v /path/to/log:/app/log`| Make logs persistent. [More Info](https://github.com/beechfuzz/e2guardian-docker/wiki/Persistence-and-Volumes)
-`-e PUID=####`| Specify UID to use inside the container.  [More info](https://github.com/beechfuzz/e2guardian-docker/wiki/PUID-&-PGID).
-`-e PGID=####`| Specify GID to use inside the container.  [More info](https://github.com/beechfuzz/e2guardian-docker/wiki/PUID-&-PGID).
-`-e TZ="####'`| Specify timezone for container.  [More info](https://github.com/beechfuzz/e2guardian-docker/wiki/Timezone).
+For more advanced options, see the [Installing and Running](https://github.com/beechfuzz/e2guardian-docker/wiki/Installing-and-Running#arguments) section.
 
 &nbsp;
 
