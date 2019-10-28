@@ -128,7 +128,10 @@ RUN \
                 '\t\t e ) \n'\
                     '\t\t\t [[ "$MITM" = "off" ]] && echo "ERROR: You can'"'"'t disable and enable MITM at the same time." && usage \n'\
                     '\t\t\t [[ "$DELCERTS" ]] && echo "ERROR: You can'"'"'t enable MITM and delete the certs at the same time." && usage \n'\
-                    '\t\t\t MITM=on;;\n'\
+                    '\t\t\t MITM=on \n'\
+					'\t\t\t if (! $(exists $CAPRIVKEY;exit $?)) || (! $(exists $CAPUBKEYCRT;exit $?)) || (! $(exists $CAPUBKEYDER;exit $?)) || (! $(exists $UPSTREAMPRIVKEY;exit $?)); then  \n'\
+                    	'\t\t\t\t echo "Missing certs -- will generate new certs." && GENCERTS=1 && BACKUP=1 \n'\
+					'\t\t\t fi;;\n'\
                 '\t\t E ) \n'\
                     '\t\t\t [[ "$MITM" = "off" ]] && echo "ERROR: You can'"'"'t disable and enable MITM at the same time." && usage \n'\
                     '\t\t\t [[ "$DELCERTS" ]] && echo "ERROR: You can'"'"'t use the -E and -D flags the same time." && usage \n'\
@@ -186,7 +189,7 @@ RUN \
                 '\t\t -e "\|^[# ]*sslmitm = $TOGGLE *$|s|$TOGGLE.*|$MITM|g" \\\n'\
                 '\t\t -e "\|^[# ]*sslmitm = on[# ]*$|s|^[# ]*||" \\\n'\
                 '\t\t $CONF/e2guardianf1.conf \n'\
-            '\t echo "SSL MITM has been turned $MITM." \n'\
+            '\t echo "SSL MITM is $MITM." \n'\
         'fi \n'\
         > /app/sbin/e2g-mitm.sh && \
     chmod +x /app/sbin/e2g-mitm.sh
@@ -223,7 +226,7 @@ RUN \
         'E2G_SSL="$E2G_CONF/ssl" \n'\
         'E2G_SERVERCERTS="$E2G_SSL/servercerts" \n'\
         'E2G_GENCERTS="$E2G_SSL/generatedcerts" \n'\
-        'E2G_MITM=${E2G_MITM:="enable"} \n'\
+        'E2G_MITM=${E2G_MITM:="on"} \n'\
         '\n\n'\
         '#Set UID and GID of e2guardian account \n'\
         '#------------------------------------- \n'\
@@ -247,7 +250,7 @@ RUN \
         '\n\n'\
         '#Enable/Disable MITM \n'\
         '#------------------- \n'\
-        'e2g-mitm.sh -$([[ "$E2G_MITM" = "enable" ]] && echo "e" || echo "d") \n'\
+        'e2g-mitm.sh -$([[ "$E2G_MITM" = "on" ]] && echo "e" || echo "d") \n'\
         '\n\n'\
         '#Start Filebrowser \n'\
         '#-----------------\n'\
@@ -278,7 +281,7 @@ FROM alpine:3.8
 ENV PATH="${PATH}:/app/sbin" \
     PUID="1000" \
     PGID="1000" \
-    E2G_MITM="enable" \
+    E2G_MITM="on" \
     FILEBROWSER_ADDR="0.0.0.0" \
     FILEBROWSER_PORT="80" \
     FILEBROWSER_ROOT="/app/e2guardian/config" \
