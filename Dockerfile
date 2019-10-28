@@ -47,7 +47,7 @@ RUN \
         --enable-ntlm="yes" \
         -enable-pcre="yes" \
         'CPPFLAGS=-mno-sse2 -g -O2' && \
-    make -j 16 && make install
+    make && make install
 
 # SSL MITM modifications
 RUN \
