@@ -129,9 +129,9 @@ RUN \
                     '\t\t\t [[ "$MITM" = "off" ]] && echo "ERROR: You can'"'"'t disable and enable MITM at the same time." && usage \n'\
                     '\t\t\t [[ "$DELCERTS" ]] && echo "ERROR: You can'"'"'t enable MITM and delete the certs at the same time." && usage \n'\
                     '\t\t\t MITM=on \n'\
-					'\t\t\t if (! $(exists $CAPRIVKEY;exit $?)) || (! $(exists $CAPUBKEYCRT;exit $?)) || (! $(exists $CAPUBKEYDER;exit $?)) || (! $(exists $UPSTREAMPRIVKEY;exit $?)); then  \n'\
-                    	'\t\t\t\t echo "Missing certs -- will generate new certs." && GENCERTS=1 && BACKUP=1 \n'\
-					'\t\t\t fi;;\n'\
+                    '\t\t\t if (! $(exists $CAPRIVKEY;exit $?)) || (! $(exists $CAPUBKEYCRT;exit $?)) || (! $(exists $CAPUBKEYDER;exit $?)) || (! $(exists $UPSTREAMPRIVKEY;exit $?)); then  \n'\
+                        '\t\t\t\t echo "Missing certs -- will generate new certs." && GENCERTS=1 && BACKUP=1 \n'\
+                    '\t\t\t fi;;\n'\
                 '\t\t E ) \n'\
                     '\t\t\t [[ "$MITM" = "off" ]] && echo "ERROR: You can'"'"'t disable and enable MITM at the same time." && usage \n'\
                     '\t\t\t [[ "$DELCERTS" ]] && echo "ERROR: You can'"'"'t use the -E and -D flags the same time." && usage \n'\
