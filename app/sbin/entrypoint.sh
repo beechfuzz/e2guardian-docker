@@ -5,7 +5,11 @@ E2G_SSL="$E2G_CONF/ssl"
 E2G_SERVERCERTS="$E2G_SSL/servercerts"
 E2G_GENCERTS="$E2G_SSL/generatedcerts"
 E2G_MITM=${E2G_MITM:="on"}
-
+FILEBROWSER_ADDR=${FILEBROWSER_ADDR:="0.0.0.0"}
+FILEBROWSER_PORT=${FILEBROWSER_ADDR:="80"}
+FILEBROWSER_ROOT=${FILEBROWSER_ROOT:="/config"}
+FILEBROWSER_DB=${FILEBROWSER_DB:="/config/filebrowser/database.db"}
+FILEBROWSER_LOG=${FILEBROWSER_LOG:="/app/log/filebrowser.log"}
 
 #Set UID and GID of e2guardian account
 #-------------------------------------
