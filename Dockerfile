@@ -88,13 +88,7 @@ FROM alpine:3.8
 
 ENV PATH="${PATH}:/app/sbin" \
     PUID="1000" \
-    PGID="1000" \
-    E2G_MITM="on" \
-    FILEBROWSER_ADDR="0.0.0.0" \
-    FILEBROWSER_PORT="80" \
-    FILEBROWSER_ROOT="/config" \
-    FILEBROWSER_DB="/config/filebrowser/database.db" \
-    FILEBROWSER_LOG="/app/log/filebrowser.log"
+    PGID="1000" 
 
 VOLUME /config /app/log
 
