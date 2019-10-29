@@ -16,7 +16,6 @@ usermod -o -u $PUID e2guardian
 #Verify important files in Docker volumes exist
 #----------------------------------------------
 [[ -z "$(ls -A $E2G_CONF 2>/dev/null)" ]] && tar xzf $APP/config.gz -C /
-[[ ! -f $E2G/log/access.log ]] && touch $APP/log/access.log
 
 
 #Remove any existing .pid file that could prevent e2guardian from starting
