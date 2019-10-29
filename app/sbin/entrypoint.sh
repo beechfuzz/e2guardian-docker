@@ -20,7 +20,7 @@ usermod -o -u $PUID e2guardian
 
 #Remove any existing .pid file that could prevent e2guardian from starting
 #-------------------------------------------------------------------------
-rm -rf $APP/var/run/e2guardian.pid
+rm -rf $APP/pid/e2guardian.pid
 
 
 #Ensure correct ownership and permissions
