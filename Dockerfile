@@ -63,12 +63,8 @@ RUN \
     echo '######## Enable MITM ########' && \
     /app/sbin/e2g-mitm.sh -Eb && \
     \
-    echo '######## Enable dockermode and update log location ########' && \
-    sed -i \
-        -e "s|^.\{0,1\}dockermode = off$|dockermode = on|g" \
-        -e "\|^.\{0,1\}loglocation = '.*'$|s|'.*'|'/app/log/access.log'|" \
-        -e "\|^.\{0,1\}loglocation = '.*'$|s|^#||" \
-        /config/e2guardian.conf
+    echo '######## Enable dockermode ########' && \
+    sed -i "s|^.\{0,1\}dockermode = off$|dockermode = on|g" /config/e2guardian.conf
 
 # Filebrowser
 RUN \
