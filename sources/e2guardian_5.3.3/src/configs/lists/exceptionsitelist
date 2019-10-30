@@ -1,0 +1,24 @@
+#Sites in exception list
+#Don't bother with the www. or
+#the http://
+#
+#These are specifically domains and are not URLs.
+#For example 'foo.bar/porn/' is no good, you need
+#to just have 'foo.bar'.
+#
+# IP must be put in exceptionsiteiplist
+#
+#.tld so for example you can match .gov for example
+
+
+# Time limiting syntax:
+# #time: <start hour> <start minute> <end hour> <end minute> <days>
+# Example:
+##time: 9 0 17 0 01234
+# Remove the first # from the line above to enable this list only from
+# 9am to 5pm, Monday to Friday.
+
+# NOTE: From v5 Blanket exceptions are now implimented using Storyboarding 
+# WARNING: Old style Blanket blocks in this file will be silently ignored
+
+windowsupdate.microsoft.com
