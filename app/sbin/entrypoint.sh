@@ -41,7 +41,7 @@ e2g-mitm.sh -$([[ "$E2G_MITM" = "on" ]] && echo "e" || echo "d")
 
 #Start Filebrowser
 #-----------------
-[[ -x $(which filebrowser) ]] &&
+[[ -x "$(which filebrowser)" ]] &&
     filebrowser \
         -a $FILEBROWSER_ADDR \
         -p $FILEBROWSER_PORT \
