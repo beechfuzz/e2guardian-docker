@@ -10,6 +10,8 @@ FILEBROWSER_PORT=${FILEBROWSER_ADDR:="80"}
 FILEBROWSER_ROOT=${FILEBROWSER_ROOT:="/config"}
 FILEBROWSER_DB=${FILEBROWSER_DB:="/config/filebrowser/database.db"}
 FILEBROWSER_LOG=${FILEBROWSER_LOG:="/app/log/filebrowser.log"}
+NWEB_PORT=${NWEB_PORT:="81"}
+
 
 #Set UID and GID of e2guardian account
 #-------------------------------------
@@ -49,6 +51,11 @@ e2g-mitm.sh -$([[ "$E2G_MITM" = "on" ]] && echo "e" || echo "d")
         -d $FILEBROWSER_DB \
         -l $FILEBROWSER_LOG &
 
+
+#Start Nweb
+#----------
+[[ -x "$(which nweb)" ]] &&
+	nweb $NWEB_PORT $E2G_SERVERCERTS &
 
 #Start e2guardian
 #----------------
