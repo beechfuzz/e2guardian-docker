@@ -55,7 +55,7 @@ e2g-mitm.sh -$([[ "$E2G_MITM" = "on" ]] && echo "e" || echo "d")
 #Start Nweb
 #----------
 [[ -x "$(which nweb)" ]] &&
-	nweb $NWEB_PORT $E2G_SERVERCERTS &
+	nweb $NWEB_PORT /app/nweb &
 
 #Start e2guardian
 #----------------
