@@ -1,0 +1,343 @@
+NOTE: Change release 3.1.0 onwards
+----------------------------------
+Due to differences in release levels of the GNU autotools on different 
+platforms we are no longer including the configure script as part 
+of the distribution.
+
+NOTE: For v5 - please read notes/NEWIN_v5 first!
+------------------------------------------------
+
+HOW TO BUILD:
+-------------
+The distribution uses GNU autotools for building.
+
+Run ./autogen.sh or autoreconf after downloading and unpacking
+to (re)generate the configure script and Makefile.in files.
+
+Most users should then follow the standard
+"./configure; make; make install" process common to UNIX packages.  
+
+Please read the sections below for your OS for the most widely used
+configuration options.
+
+*** xBSD users, please ensure you have bash1 installed first ***
+
+*** Debian and Ubuntu users, please read the Debian section first. ***
+
+*** OS X / Darwin users, please read the OS X section first. ***
+
+1.	  Run the ./autogen.sh script to generate the configure script.
+	If an error occurs in running autogen.sh or ./configure then
+	make sure you have an up-to-date version of automake tools and 
+	then run autoreconf.
+
+2.        Run the configure (./configure --help) script with
+        the help option to see the user selectable settings.
+        Default settings are shown in [].
+
+3.        Run the configure (./configure) script with your
+        options, if any.  It is HIGHLY LIKELY that you will
+        want to change some options.  Please read down for
+        suggested options for your platform.
+
+4.        "make"** or "gmake" will now build E2Guardian.
+
+5.        "make install" will create the directory structure and install
+        all the files in the chosen paths.  For a more efficient
+        install, try "make install-strip" which will strip symbol
+	information to the DG binary smaller.
+
+6.        "make clean" will remove the now un-needed object files etc.
+
+7.        See the section later called ADDITIONAL SCRIPTS to add
+        log rotation, optional CGI block page, startup scripts etc.
+
+
+** You can often use "make -j 2" or "make -j 5" to compile DG faster,
+   especially on multiple CPU computers.  As a general rule of thumb,
+   use the number of CPUs/cores plus one.
+   With Solaris and others you may need "gmake" instead of "make".
+   
+
+
+OPTIONS:
+--------
+`configure' configures e2guardian to adapt to many kinds of systems.
+
+Usage: ./configure [OPTION]... [VAR=VALUE]...
+
+To assign environment variables (e.g., CC, CFLAGS...), specify them as
+VAR=VALUE.  See below for descriptions of some of the useful variables.
+
+Defaults for the options are specified in brackets.
+
+Configuration:
+  -h, --help              display help and exit
+      --help=short        display options specific to this package
+      --help=recursive    display the short help of all the included packages
+  -V, --version           display version information and exit
+  -q, --quiet, --silent   do not print `checking...' messages
+      --cache-file=FILE   cache test results in FILE [disabled]
+  -C, --config-cache      alias for `--cache-file=config.cache'
+  -n, --no-create         do not create output files
+      --srcdir=DIR        find the sources in DIR [configure dir or `..']
+
+Installation directories:
+  --prefix=PREFIX         install architecture-independent files in PREFIX
+			  [/usr/local]
+  --exec-prefix=EPREFIX   install architecture-dependent files in EPREFIX
+			  [PREFIX]
+
+By default, `make install' will install all the files in
+`/usr/local/bin', `/usr/local/lib' etc.  You can specify
+an installation prefix other than `/usr/local' using `--prefix',
+for instance `--prefix=$HOME'.
+
+For better control, use the options below.
+
+Fine tuning of the installation directories:
+  --bindir=DIR           user executables [EPREFIX/bin]
+  --sbindir=DIR          system admin executables [EPREFIX/sbin]
+  --libexecdir=DIR       program executables [EPREFIX/libexec]
+  --datadir=DIR          read-only architecture-independent data [PREFIX/share]
+  --sysconfdir=DIR       read-only single-machine data [PREFIX/etc]
+  --sharedstatedir=DIR   modifiable architecture-independent data [PREFIX/com]
+  --localstatedir=DIR    modifiable single-machine data [PREFIX/var]
+  --libdir=DIR           object code libraries [EPREFIX/lib]
+  --includedir=DIR       C header files [PREFIX/include]
+  --oldincludedir=DIR    C header files for non-gcc [/usr/include]
+  --infodir=DIR          info documentation [PREFIX/info]
+  --mandir=DIR           man documentation [PREFIX/man]
+
+Program names:
+  --program-prefix=PREFIX            prepend PREFIX to installed program names
+  --program-suffix=SUFFIX            append SUFFIX to installed program names
+  --program-transform-name=PROGRAM   run sed PROGRAM on installed program names
+
+System types:
+  --build=BUILD     configure for building on BUILD [guessed]
+
+Optional Features:
+  --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
+  --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --disable-dependency-tracking  speeds up one-time build
+  --enable-dependency-tracking   do not reject slow dependency extractors
+  --enable-static-zlib[=no]
+                          Enable static linking of zlib
+  --enable-pcre[=yes]
+                          Enable support for the PCRE library
+  --enable-segv-backtrace[=no]
+                          Enable logging a backtrace when a segmentation fault
+                          occurs
+  --enable-lfs[=yes]
+                          Enable large file support on 32 bit systems
+  --enable-orig-ip[=no]
+                          Enable support for checking the client's original
+                          destination IP address against HTTP request details
+                          when deployed as a transparent proxy (US-CERT
+                          VU#435052). Currently only works on Linux.
+  --enable-clamd[=no]
+                          Enable support for the ClamD content scanner
+  --enable-avastd[=no]
+                          Enable support for the AvastD content scanner
+  --enable-icap[=no]
+                          Enable support for ICAP AV server content scanner
+  --enable-kavd[=no]
+                          Enable support for the Kaspersky AV daemon content
+                          scanner
+  --enable-commandline[=no]
+                          Enable support for command-line content scanners
+  --enable-fancydm[=yes]
+                          Enable support for the fancy download manager
+  --enable-totalblocklist[=no]
+                          Enable support for total block list
+  --enable-trickledm[=no]
+                          Enable support for the trickle download manager
+  --enable-ntlm[=no]
+                          Enable support for the NTLM auth plugin
+  --enable-dnsauth[=no]
+                          Enable support for the DNS auth plugin
+  --enable-email[=no]
+                          Enable support for email reporting functionality
+
+Optional Packages:
+  --with-PACKAGE[=ARG]    
+			  use PACKAGE [ARG=yes]
+  --without-PACKAGE       
+			  do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-zlib[=NONE]
+                          non-standard search path for zlib library
+  --with-dgdebug[=off]
+                          switch on debug build mode
+  --with-proxyuser[=nobody]
+                          name of proxy user
+  --with-proxygroup[=nobody]
+                          name of proxy group
+  --with-piddir[=${localstatedir}/run]
+                          path for pid file
+  --with-logdir[=${localstatedir}/log/${PACKAGE_NAME}]
+                          path for log files
+  --with-libiconv[=NONE]
+                          Specify search path on a system which requires an
+                          external iconv library (only used in conjunction
+                          with NTLM auth plugin).
+  --with-sysconfsubdir[=e2guardian]
+                          subdirectory under sysconfdir in which to place
+                          config files
+
+Some influential environment variables:
+  CXX         C++ compiler command
+  CXXFLAGS    C++ compiler flags
+  LDFLAGS     linker flags, e.g. -L<lib dir> if you have libraries in a
+              nonstandard directory <lib dir>
+  CPPFLAGS    C/C++ preprocessor flags, e.g. -I<include dir> if you have
+              headers in a nonstandard directory <include dir>
+  CC          C compiler command
+  CFLAGS      C compiler flags
+  CPP         C preprocessor
+  CXXCPP      C++ preprocessor
+  PKG_CONFIG  path to pkg-config utility
+  PCRE_CFLAGS C compiler flags for PCRE, overriding pkg-config
+  PCRE_LIBS   linker flags for PCRE, overriding pkg-config
+
+Use these variables to override the choices made by `configure' or to help
+it to find libraries and programs with nonstandard names/locations.
+
+See ./configure --help for more details.
+
+
+MACOSX:
+-------
+
+*** Note in order to do any compiling in OS X you need to install ***
+*   the Developer Tools - an additional pkg called BSDSDK.pkg.      *
+
+A standard configure script that should work, provided you have installed
+MACOSX and the associated programs in their default locations.
+
+    ./configure --localstatedir=/var \
+        --mandir=/usr/share/man/ \
+        --bindir=/usr/local/sbin/
+
+You might consider changing the location of the log files to
+'--with-logdir=/usr/local/e2guardian/logs/' and use the provided
+log rotation script.  Alternatively stick with the default
+(/var/log/e2guardian/) and read newsyslog(8).
+
+
+DEBIAN:
+-------
+
+Build-Depends: base-files, base-passwd, bash, coreutils, dash, debianutils, diffutils, dpkg, e2fsprogs, findutils, grep, gzip, hostname, ncurses-base, libevent_pthreads, libevent-dev, ncurses-bin, perl-base, sed, login, sysvinit-utils, sysvinit, tar, bsdutils, mount, util-linux, libc6-dev , libc-dev, gcc , g++ , make, dpkg-dev , autotools-dev, debhelper , dh-autoreconf, dpatch , libclamav-dev , libpcre3-dev, zlib1g-dev, pkg-config, libssl-dev, libssl1.1 (can be also compiled with libssl1.0)
+Other packages related to E2guardian : adduser, perl, libbz2, libc6, libgcc1, libpcre3, libstdc++, libtommath0, zlib1g
+Other Packages suggests to E2guardian: squid, clamav, clamav-freshclam
+Autogen is needed !
+
+Eg:
+./autogen.sh && ./configure  '--prefix=/usr' '--enable-clamd=yes' '--with-proxyuser=e2guardian' '--with-proxygroup=e2guardian' '--sysconfdir=/etc' '--localstatedir=/var' '--enable-icap=yes' '--enable-commandline=yes' '--enable-email=yes' '--enable-ntlm=yes' '--mandir=${prefix}/share/man' '--infodir=${prefix}/share/info' '--enable-pcre=yes' '--enable-sslmitm=yes' 'CPPFLAGS=-mno-sse2 -g -O2' && make
+
+NETBSD:
+-------
+
+A standard configure script that should work, provided you have installed
+NetBSD and the associated programs in their default locations.
+    ./configure  --localstatedir=/var \
+        --prefix=/usr/pkg
+        --sysconfdir=/usr/pkg/etc \
+        --bindir=/usr/pkg/sbin/
+
+For NetBSD you might consider changing the location of the log files
+to '--with-logdir=/usr/local/e2guardian/logs/' and use the
+provided log rotation script.  Alternatively stick with the default
+(/var/log/e2guardian/) and read newsyslog(8).
+Be sure that /usr/sbin/ is in your PATH before make install (for chown).
+
+
+FREEBSD:
+--------
+A standard configure script that should work, provided you have installed
+FreeBSD and the associated programs in their default locations.
+
+    ./configure  --localstatedir=/var
+
+For FreeBSD and OpenBSD you might consider changing the location of the
+log files to '--with-logdir=/usr/local/e2guardian/logs/' and use the
+provided log rotation script.  Alternatively stick with the default
+(/var/log/e2guardian/) and read newsyslog(8).
+
+
+OPENBSD:
+--------
+A standard configure script that should work, provided you have installed
+OpenBSD and the associated programs in their default locations.
+
+    ./configure  --localstatedir=/var \
+        --bindir=/usr/sbin \
+        --mandir=/usr/share/man \
+        --sysconfdir=/etc
+
+
+HOW TO CONFIGURE:
+-----------------
+
+Edit the e2guardian.conf, e2guardianf1.conf and other files.
+The files are commented well.
+
+
+
+
+ADDITIONAL SCRIPTS:
+-------------------
+
+In /usr/local/share/e2guardian/scripts (or wherever you configured
+it to be) you will find at least the following files:
+bsd-init - a BSD style startup script to be put in your rc.d
+solaris-init - a Solaris style startup script to be put in your rc.d
+systemv-init - a Linux style startup script to be put in your rc.d
+e2guardian.service - a Linux style startup script to be put in your systemd directory
+e2guardian - a logrotate.d file
+logrotation - a sh script to rotate the logs
+../e2guardian.pl - a cgi script for an access denied page
+
+The installation of startup scripts is
+deemed out of the scope of source code and is the playground of
+packagers and sysadmins.
+
+This is also true of log rotation scripts.  You can choose to use
+the example logrotate.d file or you could crontab the logrotation
+script thus:
+crontab -e
+59 23 * * sat /usr/local/share/e2guardian/scripts/logrotation
+(now save)
+I.e. 23:59 every Saturday.  Or change to as pleases you.
+
+If you wish to use the cgi denied script rather than the template
+html denied page you will find it in:
+/usr/local/share/e2guardian/ (or wherever you configured it to
+be).  This is not usually recommended but if you do want to do
+this copy it to your web servers' cgi-bin directory.
+E2Guardian.
+
+
+
+HOW TO RUN:
+-----------
+
+You can start it by just running the binary.  You can stop it by
+appending a ' -q' to the end, thus: 'e2guardian -q'.  Or you can use
+the SysV(-like) script provided.
+
+
+
+HOW TO GET HELP:
+----------------
+http://e2guardian.org/
+
+Here is the first place to start for getting support.  There is a mailing
+list available for those that do not find the answers to their questions
+from the url above. The mailing list can be found at the url.  Please
+DO NOT email the authors for support as you will be just directed at the
+mailing list.
+
+
+

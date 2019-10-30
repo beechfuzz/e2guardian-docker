@@ -1,0 +1,206 @@
+This is the v5.3.1 stable version
+
+Note that large sections of the code has been re-written and there are
+significant changes to the configuration files in v5.
+
+V5 is written in c++11 and so to compile it you will need gcc v5.4 
+or later. (or another complier that supports the full c++11).  
+Note that the target systems may also need an c++11 library update.
+
+See notes/NEWIN_v4 for details of the major process model changes 
+incorporated from version 4.
+
+REVISED LIST and STORYBOARDING MODEL
+
+Version 5 has a completely revised model for defining and using lists.
+
+List definition is now separated from list application. Lists are no longer
+hard-coded, but mapped to a function using a storyboard.  
+
+Filtering logic flow is simplified and made more consistent.  Requests are 
+analysed first and flags set (exception, grey, blocked etc) and once this 
+checking is complete actions are taken.  Large sections of duplicate logic
+has been removed from ConnectionHandler and large sections are now
+separate functions.
+
+Storyboarding is a simple scripting language that maps lists to functions
+and allows flags to be set. 
+
+This means that new lists can be added without changing the code, by adding
+a new list definition and then applying it in a revised storyboard.  
+
+A different storyboard can be applied to each filtergroup, so if required, 
+each filtergroup can have a different logic flow.
+
+Please read notes/V5_list_definition.pdf & notes/V5_Storyboard.pdf for
+details.
+
+TRANSPARENT HTTPS
+
+    Detects SNI and flags whether traffic is TLS.  
+    Currently limited to port 443 traffic.
+
+ICAP SERVER
+
+    REQMOD and RESPMOD mode supported.
+    See notes/icap.
+
+DIRECT UPSTREAM ACCESS I.e. not via proxy.  
+
+    To implement globaly comment out 'proxyip =' in e2guardian.conf.
+
+    The storyboard action setgodirect can be used within checkrequest functions 
+    to enable selected protocols/site/urls to godirect.
+    e.g. to send all connect requests directly add
+		if(connect) setgodirect
+	to a requestchecks function.
+    This can be also useful to by-pass squid for some requests (e.g. os update 
+    sites) when squid authentication methods are being used.
+
+STORYBOARD TRACING
+
+    New option 'storyboardtrace' to enable tracing output -
+    for storyboard bug-fixing
+
+READABLE THREAD_ID FOR LOGS & DEBUG
+
+    Most debug and syslog messages are now prefixed with a thread ID as
+    follows:- 
+
+    master: for master thread
+
+    listen1_proxy:  normal proxy listener
+    listen1_thttps: tranparent https listener
+    listen1_icap: icap listener
+
+    where '1' is index
+
+    hw10: for http_worker threads where '10' is the thread number
+
+    log: for logging thread
+
+REVISED DEBUG STAGE 1
+
+    The following low level debugs are no longer enabled by DGDEBUG:
+
+    Network sockets - use NETDEBUG instead
+
+    Regular expressions - use REDEBUG instead
+
+    This reduces the volume of information and makes the debug
+    log easier to read.
+
+REVISED DEBUG STAGE 2
+
+    New debuglevel option in e2guardian.conf.  Allows some debuging on
+    production systems.   Currently just for ICAP and CLAMAV.  Will be
+    extended to other sections of code in future releases.
+    
+HTTP/1.1
+
+    Support for HTTP v1.1 completed - including Chunked encoding 
+
+ANTI-VIRUS PLUGINS
+
+    Anti-virus plugins implimented for proxy, trans and ICAP 
+
+INCLUDE FILES IN e2guardianf1.conf
+
+    Filtergroup configuration files may now include other files, enabling 
+    a more DRY approach to configuration. So configuration common to several
+    filtergroups can be placed in a file which is included in the filtergroup 
+    config file. 
+ 
+    Syntax is same as list includes  -
+    .include<full_path_to_file>
+
+    Where single options and list defines with the same name are 
+    repeated only the last one read will be actioned.  This differs 
+    from pre-v5 versions where the first single option was actioned and any 
+    repeats ignored.  This allows the overwriting of single options and 
+    re-definion of lists in a structured way.
+
+LIST INPUT VIA STDIN
+
+This replaces the totalblocklist in previous versions allowing multiple
+lists to be loaded via stdin.  See notes/lists_via_stdin.
+
+OPENSSL v1.1 SUPPORT
+
+    Will now support OpenSSL v1.1 as well as v1.0.2 or above
+
+% OPTION FOR PHRASE LISTS
+
+    New % weighting option for phrase lists
+    
+Code amended so that -Wall compile option gives no warnings 
+
+Amended code so that -Wall compile option gives no warnings 
+
+BETTER HANDLING OF TRANSPARENT HTTPS REQUESTS
+
+Requests without SNI and those not TLS no longer tried for MITM.
+
+TESTING -  
+---------
+
+    Please prefix all bug reports with "v5.3: "
+
+TO DO IN NEXT RELEASE
+---------------------
+
+    Option for output file for storyboard trace
+
+    Reduce unnecessary memory usage on in DataBuffer
+
+    Transparent HTTP/HTTPS on ports other than 80/443
+
+    Make SSL sockets non-blocking so time-out works with MITM
+
+    Implement a "learning" mode,  test the rules effects without block  
+
+    Polish new debug feature
+
+    Multi-tenancy mode first stage (may be in later or branched release)
+
+TODO - for later releases.
+-----------------------
+
+    POST content filtering
+
+    Re-look at MITM certificate generation.
+
+    Storyboard action by filter category (e.g. to replace hard-coded 'ADs' 
+        no log option)
+
+    Remove duplicate list/storyboard warnings with a DRY system and add no warn
+        option.
+
+    Extend new debug feature to further modules
+
+WISHLIST
+--------
+
+    Adding a 'control' port (something similar to REST API) to pass commands 
+         (eg: reload, update lists, etc) and check status
+
+    Multi-tenancy option.
+
+    Support for authenticaion helpers to allow ntlm, basic etc auth
+         without using squid proxy.
+
+    Re-impliment mailing option.
+
+    Per-user exceptions/blocks.
+
+    Per-room blocks.
+
+    Rate-limiting feature 
+
+    HTTP/2 support (v6)
+
+    IPv6 support (v6)
+
+Philip Pearce 3rd January 2019
+
+
