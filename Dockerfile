@@ -21,7 +21,7 @@ RUN \
 # Filebrowser and Nweb
 RUN \
     echo '######## Install build packages ########' && \
-    apk add --update --no-cache curl gcc libc-dev && \
+    apk add --update --no-cache curl gcc libc-dev argp-standalone linux-headers && \
     \
     echo '######## Install Filebrowser ########' && \
     mkdir -p /config/filebrowser && \
@@ -30,7 +30,7 @@ RUN \
     chmod +x /app/sbin/filebrowser && \
     \
     echo '######## Install Nweb ########' && \
-    gcc -O2 /tmp/nweb23.c -o /app/sbin/nweb --static && \
+    gcc -O2 /tmp/nweb23.c -o /app/sbin/nweb --static -largp && \
     mkdir -p /app/nweb && \
     echo -e \
         '<a href="cacertificate.crt">CA Certificate (crt)</a><p>' \
