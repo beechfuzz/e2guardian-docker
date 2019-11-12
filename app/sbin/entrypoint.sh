@@ -83,7 +83,9 @@ if [[ "$NWEB" = "on" ]]; then
     if [[ "$E2G_MITM" = "on" ]]; then
         (file_exists $e2g_capubkeycrt) && (! file_exists $nweb_crt) && ln -s $e2g_capubkeycrt $nweb_crt
         (file_exists $e2g_capubkeyder) && (! file_exists $nweb_der) && ln -s $e2g_capubkeyder $nweb_der
-        nweb $NWEB_PORT $appnweb &
+	nweb -p "$NWEB_PORT" -r "$appnweb" -l /app/log/nweb.log \
+		&& echo INFO: Nweb started and running on port "$NWEB_PORT". \
+		|| echo ERROR: Nweb failed to start!
     else
         echo "WARNING: Nweb was configured to start even though SSL MITM is disabled.  Leaving Nweb off as it would serve no function."
     fi
