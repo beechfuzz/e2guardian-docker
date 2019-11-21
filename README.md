@@ -11,7 +11,7 @@ An [E2Guardian](https://github.com/e2guardian/e2guardian) Docker container with 
 
 My goal for this container is to provide a quick and easy way to set up content filtering without too much configuration from the user.  Therefore, SSL MITM is enabled by default and SSL certs are created automatically during building.  For the most part, all the user needs to do is to manage the lists to their liking.
 
-**CURRENT VERSION:  v5.3.3**
+**E2GUARDIAN VERSION:  v5.3.3**
 
 ### What Is E2Guardian?
 
