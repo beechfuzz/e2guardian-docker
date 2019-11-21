@@ -69,12 +69,14 @@ fi
 #Start Filebrowser
 #-----------------
 if [[ "$FILEBROWSER" = "on" ]]; then
-    filebrowser \
+    (filebrowser \
         -a $FILEBROWSER_ADDR \
         -p $FILEBROWSER_PORT \
         -r $FILEBROWSER_ROOT \
         -d $FILEBROWSER_DB \
-        -l $FILEBROWSER_LOG &
+        -l $FILEBROWSER_LOG &) \
+	&& echo INFO: Filebrowser started and running on port "$FILEBROWSER_PORT". \
+	|| echo ERROR: Filebrowser failed to start!
 fi
 
 #Start Nweb
@@ -83,7 +85,7 @@ if [[ "$NWEB" = "on" ]]; then
     if [[ "$E2G_MITM" = "on" ]]; then
         (file_exists $e2g_capubkeycrt) && (! file_exists $nweb_crt) && ln -s $e2g_capubkeycrt $nweb_crt
         (file_exists $e2g_capubkeyder) && (! file_exists $nweb_der) && ln -s $e2g_capubkeyder $nweb_der
-	nweb -p "$NWEB_PORT" -r "$appnweb" -l /app/log/nweb.log \
+	(nweb -p "$NWEB_PORT" -r "$appnweb" -l /app/log/nweb.log &) \
 		&& echo INFO: Nweb started and running on port "$NWEB_PORT". \
 		|| echo ERROR: Nweb failed to start!
     else
