@@ -30,7 +30,7 @@ RUN \
     chmod +x /app/sbin/filebrowser && \
     \
     echo '######## Install Nweb ########' && \
-    gcc -O2 /tmp/nweb23.c -o /app/sbin/nweb --static -largp && \
+    gcc -O2 /tmp/nweb.c -o /app/sbin/nweb --static -largp && \
     mkdir -p /app/nweb && \
     echo -e \
         '<a href="cacertificate.crt">CA Certificate (crt)</a><p>' \
