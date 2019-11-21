@@ -8,7 +8,7 @@ SHELL ["/bin/bash", "-c"]
 
 # e2guardian prep and configuration
 COPY sources/e2guardian_5.3.3/e2g_post-makeinstall.tar.gz \
-     sources/nweb/nweb23.c \
+     sources/nweb/nweb.c \
      /tmp/
 COPY app/sbin/* /app/sbin/
 RUN \
