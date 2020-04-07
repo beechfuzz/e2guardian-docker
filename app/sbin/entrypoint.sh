@@ -75,7 +75,8 @@ if [[ "$FILEBROWSER" = "on" ]]; then
         -r $FILEBROWSER_ROOT \
         -d $FILEBROWSER_DB \
         -l $FILEBROWSER_LOG &) \
-	&& echo INFO: Filebrowser started and running on port "$FILEBROWSER_PORT". \
+	&& touch /config/_DELETE_ME_TO_RESTART_E2G \
+    && echo INFO: Filebrowser started and running on port "$FILEBROWSER_PORT". \
 	|| echo ERROR: Filebrowser failed to start!
 fi
 
