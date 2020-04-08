@@ -25,8 +25,9 @@ RUN \
     \
     echo '######## Install Filebrowser ########' && \
     mkdir -p /config/filebrowser && \
-    curl -fsSL https://filebrowser.xyz/get.sh | bash && \
-    mv $(which filebrowser) /app/sbin && \
+    curl -fsSL https://github.com/filebrowser/filebrowser/releases/download/v2.0.16/linux-amd64-filebrowser.tar.gz -o /tmp/linux-amd64-filebrowser.tar.gz && \
+    tar -xzf /tmp/linux-amd64-filebrowser.tar.gz -C /tmp filebrowser && \
+    mv /tmp/filebrowser /app/sbin && \
     chmod +x /app/sbin/filebrowser && \
     \
     echo '######## Install Nweb ########' && \
