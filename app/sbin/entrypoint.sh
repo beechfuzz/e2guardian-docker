@@ -69,6 +69,24 @@ fi
 #Start Filebrowser
 #-----------------
 if [[ "$FILEBROWSER" = "on" ]]; then
+    # For first time running Filebrowser, quickly run it then kill it so that a .db file is created
+    if (! file_exists "$FILEBROWSER_DB"); then
+        (filebrowser \
+            -a $FILEBROWSER_ADDR \
+            -p $FILEBROWSER_PORT \
+            -r $FILEBROWSER_ROOT \
+            -d $FILEBROWSER_DB \
+            -l $FILEBROWSER_LOG &) && sleep 1 && pkill filebrowser
+    fi
+    # Add a 'Command Runner' that restarts the container if /config/_DELETE_ME_TO_RESTART_E2G is
+    # deleted via Filebrowser.  This makes it easy for the admin to restart the E2G service
+    # without having to issue docker commands.
+    if ( ! filebrowser -d $FILEBROWSER_DB cmds ls | grep -q "after_delete(.*pkill entrypoint\.sh" ); then
+        filebrowser -d $FILEBROWSER_DB cmds add \
+            "after_delete" \
+            "sh -c \"[[ \$FILE == '/config/_DELETE_ME_TO_RESTART_E2G' ]] && pkill entrypoint.sh\"";
+    fi
+    # Now we'll actually run Filebrowser    
     (filebrowser \
         -a $FILEBROWSER_ADDR \
         -p $FILEBROWSER_PORT \
