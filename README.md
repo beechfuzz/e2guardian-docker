@@ -19,12 +19,12 @@ My goal for this container is to provide a quick and easy way to set up content 
 
 I ripped that straight from their website: [http://www.e2guardian.org](http://www.e2guardian.org/).
 
-### Docker Features
-* [SSL MITM](https://github.com/beechfuzz/e2guardian-docker/wiki/SSL-MITM) enabled and configured by default
-* Automatic enabling/disabling of [SSL MITM](https://github.com/beechfuzz/e2guardian-docker/wiki/SSL-MITM); not necessary to manually edit any files
-* Included web-GUI ([Filebrowser](https://github.com/beechfuzz/e2guardian-docker/wiki/Filebrowser)) for easy editing of config files & lists
-* Included web server ([Nweb](https://github.com/beechfuzz/e2guardian-docker/wiki/Nweb)) for painless distributing of SSL MITM CA certs for client browsers
-* Included [tool](https://github.com/beechfuzz/e2guardian-docker/wiki/Important-Files-and-Directories#appsbine2g-mitmsh) for backing up and generating SSL MITM CA certs
+### Container Features
+* [SSL MITM](https://github.com/beechfuzz/e2guardian-docker/wiki/SSL-MITM) enabled and configured by default.
+* Automatic enabling/disabling of [SSL MITM](https://github.com/beechfuzz/e2guardian-docker/wiki/SSL-MITM); not necessary to manually edit any files.
+* Included web-GUI ([Filebrowser](https://github.com/beechfuzz/e2guardian-docker/wiki/Filebrowser)) for easy editing of config files & lists, and quick restarting of the container.
+* Included web server ([Nweb](https://github.com/beechfuzz/e2guardian-docker/wiki/Nweb)) for painless distributing of SSL MITM CA certs for client browsers.
+* Included [tool](https://github.com/beechfuzz/e2guardian-docker/wiki/Important-Files-and-Directories#appsbine2g-mitmsh) for backing up and generating SSL MITM CA certs.
 
 &nbsp;
 
