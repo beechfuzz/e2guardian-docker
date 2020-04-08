@@ -28,9 +28,6 @@ RUN \
     curl -fsSL https://filebrowser.xyz/get.sh | bash && \
     mv $(which filebrowser) /app/sbin && \
     chmod +x /app/sbin/filebrowser && \
-    filebrowser -d /config/filebrowser/database.db cmds add \
-        "after_delete" \
-        "sh -c \"[[ $FILE == '/config/_DELETE_ME_TO_RESTART_E2G' ]] && pkill entrypoint.sh\"" && \
     \
     echo '######## Install Nweb ########' && \
     gcc -O2 /tmp/nweb.c -o /app/sbin/nweb --static -largp && \
